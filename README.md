@@ -1,4 +1,4 @@
-## Team25 - Project Ideas
+# Team25 - Project Ideas
 
 #Idea 1 Chatbot for incoming SJSU students
 We will use commononly asked questions (like how many credits are needed to be a full-time student? Or where to find housing?) to help assist new incoming students.
