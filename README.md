@@ -13,7 +13,7 @@ Note: None of the ideas were approved in class so we came up with some new ideas
 * **Dataset:** https://www.kaggle.com/nsharan/h-1b-visa/data and https://www.dol.gov/agencies/eta/foreign-labor/performance#dis 
 
 
-## Idea 2 Dashboard for Diabetic Retinopathy Detection for Ophthalmologists in India: 
+## Idea 2 Dashboard for Diabetic Retinopathy Detection for Ophthalmologists in India: - Approved
 
 * **Abstract:** India has approximately 77 million people suffering from Diabetes. Diabetic Retinopathy (DR) is a complication of diabetes that can cause blindness to those who suffer it. Detecting DR is a time-consuming task that requires expert clinicians and can often lead to a delay in treatment due to the slow nature of the process. There are lots of areas in India that lack the expertise required to cope up with the rising rate of diabetes. We want to create a dashboard that would automate the process of identifying DR so that help can be given to those who need it urgently.   	 	
 
