@@ -1,4 +1,4 @@
-# Team25 - Project Idea
+# Team25 - Project Idea123
 
 ## Dashboard for Diabetic Retinopathy Detection for Ophthalmologists in India: - Approved
 
