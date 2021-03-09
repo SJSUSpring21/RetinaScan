@@ -10,6 +10,7 @@ We intend to create a dashboard where opthamologists in India can upload a high 
 Ophthalmologists in India
 
 ## Architecture Diagram
-![RetinaScan - Architecture Diagram](https://user-images.githubusercontent.com/61460629/110525494-a6b68d80-813a-11eb-9d77-e8fb61727539.jpg)
+![RetinaScan - Architecture (1)](https://user-images.githubusercontent.com/61460629/110533044-93f48680-8143-11eb-8efd-d525052cfebf.jpg)
+
 
 
