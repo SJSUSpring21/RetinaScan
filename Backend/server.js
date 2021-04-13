@@ -10,6 +10,7 @@ connectDB();
 
 // Init Middleware  
 app.use(express.json({ extended: false }));
+app.use(express.urlencoded({ extended: true }))
 
 //instantiate all the models
 require("./models/patient");
@@ -21,6 +22,7 @@ require("./models/diagnosis");
 app.use(require("./routes/authRoute"));
 app.use(require("./routes/registerRoute"));
 app.use(require("./routes/viewAndPredictRoute"));
+app.use(require("./routes/uploadImage"));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
