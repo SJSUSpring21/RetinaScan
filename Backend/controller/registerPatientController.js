@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Patient = mongoose.model("Patient");
 const Opthalmologist = mongoose.model("Opthalmologist");
+const Diagnosis = mongoose.model("Diagnosis");
 
 class RegisterPatientController {
 
@@ -29,7 +30,17 @@ class RegisterPatientController {
                     })
                     patient.save()
                         .then(result => {
-                            res.status(200).send("Patient registered successfully with patientId: " + patientGenId)
+                            const diagnosisDtls = new Diagnosis({
+                                patient_id: patientGenId
+                            })
+
+                            diagnosisDtls.save()
+                                .then(result => {
+                                    res.status(200).send("Patient registered successfully with patientId: " + patientGenId)
+                                })
+                                .catch(err => {
+                                    res.status(400).send("Error while saving the patient related diagnosis object");
+                                })
                         })
                         .catch(err => {
                             console.log(err)
