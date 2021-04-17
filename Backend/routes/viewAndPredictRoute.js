@@ -22,7 +22,26 @@ router.get('/fetchPatientDetails/:patientId', (req, res) => {
         console.log(result)
         return res.json({ result: result })
     }).catch(err => {
-            return res.status(400).json({ error: "Error while fetching all pending delete accounts" });
+            return res.status(400).json({ error: "Error while fetching patient and diagnosis information" });
+        })
+});
+
+router.get('/fetchAllPatientDetails', (req, res) => {
+    Patient.aggregate([
+        {
+            "$lookup":
+            {
+                from: "diagnoses",
+                localField: "patientGenId",
+                foreignField: "patient_id",
+                as: "allPatientInfo"
+            }
+        }
+    ]).then(result => {
+        console.log(result)
+        return res.json({ result: result })
+    }).catch(err => {
+            return res.status(400).json({ error: "Error while fetching all patient and diagnosis information" });
         })
 });
 
