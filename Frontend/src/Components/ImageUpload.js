@@ -21,7 +21,7 @@ class ImageUpload extends Component {
     singleFileUploadHandler = (event) => {
         const imageData = new FormData();
         if (this.state.selectedFile) {
-            imageData.append("patientId", 1234);
+            imageData.append("patientId", 642488);
             imageData.append('retinaImage', this.state.selectedFile, this.state.selectedFile.name);
             axios.post('http://localhost:5000/retinaImageUpload', imageData, {
                 headers: {

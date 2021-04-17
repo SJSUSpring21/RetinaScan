@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const DiagnosisSchema = mongoose.Schema({
-  patientGenId: {
+  patient_id: {
     type: Number,
     required: true
   },
   imageUrl: {
-    type: String,
-    required: true,
+    type: String
   },
   severityScore: {
     type: Number
