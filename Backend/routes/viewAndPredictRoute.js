@@ -26,4 +26,37 @@ router.get('/fetchPatientDetails/:patientId', (req, res) => {
         })
 });
 
+router.get('/getHighRiskPatients', async (req, res) => {
+    try {
+        Patient.aggregate([
+            {$match: {
+                $or: [
+                    {bloodSugarLevel:{$gte:0}},
+                    {cholestrolLevel:{$gte:1}},
+                    {bloodPressure:{$gte:0}}
+                ]
+            }}, 
+            {$lookup:{
+                from: 'diagnoses',
+                localField: 'patientGenId',
+                foreignField: 'patient_id',
+                as: 'diagnostic' 
+            }},
+            {$match:{
+                'diagnostic.0.score': {$eq:0}
+            }}
+        ])
+            .then(result => {
+                console.log(result)
+                return res.json({ result: result })
+            })
+            .catch(err => {
+                return res.status(400).json({ error: "Error while getting high risk patients" });
+            })
+    }
+    catch (err) {
+        return res.status(400).json({ error: err });
+    }
+});
+
 module.exports = router;
