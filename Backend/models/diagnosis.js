@@ -1,29 +1,24 @@
 const mongoose = require('mongoose');
 const DiagnosisSchema = mongoose.Schema({
-  patientGenId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Patient'
+  patient_id: {
+    type: Number,
+    required: true
   },
-  imageId: {
-    type: String,
-    required: true,
+  imageUrl: {
+    type: String
   },
   severityScore: {
-    type: Number,
-    required:true
+    type: Number
   },
-  diagnosisType:{
-      type: String,
-      required:true
+  diagnosisType: {
+    type: String
   },
-  comments:{
-    type: Number,
-    required:true
- },
-  riscScore:{
-    type: Number,
-    required:true
- }
+  comments: {
+    type: String
+  },
+  riscScore: {
+    type: Number
+  }
 });
 
 module.exports = mongoose.model('Diagnosis', DiagnosisSchema);

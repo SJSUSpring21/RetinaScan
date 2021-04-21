@@ -1,3 +1,4 @@
+
 import './App.css';
 import SideNavbar from './Components/SideNavbar';
 import { BrowserRouter, Switch, Route} from 'react-router-dom';
@@ -27,6 +28,6 @@ function App() {
       </BrowserRouter>
     </div>
   );
-}
 
-export default App;
+}
+ export default App;
