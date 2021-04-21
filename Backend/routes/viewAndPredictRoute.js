@@ -63,7 +63,7 @@ router.get('/getHighRiskPatients', async (req, res) => {
                 as: 'diagnostic' 
             }},
             {$match:{
-                'diagnostic.0.score': {$eq:0}
+                'diagnostic.severityScore': {$eq:0}
             }}
         ])
             .then(result => {
