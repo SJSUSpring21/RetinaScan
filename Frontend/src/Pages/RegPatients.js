@@ -30,7 +30,7 @@ export default class RegPatients extends Component {
         e.preventDefault();
 
 
-        axios.post('http://localhost:5000/', this.state.setpatientID)
+        axios.post('http://localhost:9000/', this.state.setpatientID)
           .then((response) => {
             
           });
@@ -41,7 +41,7 @@ export default class RegPatients extends Component {
         e.preventDefault();
 
 
-        axios.post('http://localhost:5000/', this.state.patientID)
+        axios.post('http://localhost:9000/', this.state.patientID)
           .then((response) => {
             
           });
