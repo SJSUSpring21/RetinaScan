@@ -20,6 +20,7 @@ export default class RegPatients extends Component {
           tobaccoUser: String,
           severityScore: Number,
           severityType: String,
+          previousRemarks: String,
           remarks: String,
           imageURL: String,  
         };
@@ -28,22 +29,40 @@ export default class RegPatients extends Component {
 
     handleRetrieve = (e) => {
         e.preventDefault();
-
-
-        axios.post('http://localhost:9000/', this.state.setpatientID)
+        axios.get(`http://localhost:9000/fetchPatientDetails/${this.state.setpatientID}`, )
           .then((response) => {
-            
+            const details = response.data.result
+            console.log(details)
+            if(details.length>0){
+              this.setState({
+                patientID: details[0].patientGenId,
+                patientName: details[0].patientName,
+                age: details[0].age,
+                gender: details[0].gender,
+                dType: details[0].diabetesType,
+                diagnosedYear: details[0].yearOfDiabetes,
+                sugarLevel: details[0].bloodSugarLevel,
+                cholestrolLevel: details[0].cholestrolLevel,
+                bloodPressure: details[0].bloodPressure,
+                tobaccoUser: details[0].isTobaccoUser,
+                severityScore: details[0].severityScore,
+                severityType: details[0].diagnosisType,
+                previousRemarks: details[0].comments,
+                imageURL: details[0].imageUrl,  
+              })
+            }
           });
     }
 
 
     handleUpdate = (e) => {
         e.preventDefault();
-
-
-        axios.post('http://localhost:9000/', this.state.patientID)
+        const patientID = this.state.patientID
+        const remarks = this.state.remarks
+        axios.post('http://localhost:9000/updateDiagnosis', {patientID,remarks})
           .then((response) => {
-            
+            console.log(response)
+            this.setState({previousRemarks: remarks})  
           });
     }
 
@@ -86,6 +105,7 @@ export default class RegPatients extends Component {
                 <p>Blood Pressure: {this.state.bloodPressure}</p>
                 <p>Tobacco User: {this.state.tobaccoUser}</p>
                 <p>Severity Score: {this.state.severityScore}</p>
+                <p>Previous Remarks: {this.state.previousRemarks}</p>
                 <p>Remarks:</p>
                 <label htmlFor="inputRemarks" className="sr-only">Remarks</label>
                 <input onChange={this.remarksChangeHandler} value={this.state.remarks} type="text" name="remarks" className="form-control mb-3" autocomplete="off"/>
@@ -93,7 +113,7 @@ export default class RegPatients extends Component {
                 <button className="btn btn-lg btn-primary btn-block" type="submit">Update</button>
                
             </form>
-            <a className="btn btn-lg btn-success btn-block" href="/patients">Close</a>
+            <a className="btn btn-lg btn-success btn-block" href="/regpatients">Close</a>
           </div>
         );
       }
