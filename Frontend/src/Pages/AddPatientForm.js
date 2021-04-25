@@ -22,7 +22,8 @@ const initialValues = {
     bloodSugarLevel:Number,
     cholestrolLevel:Number,
     isTobaccoUser:false,
-    bloodPressure:Number
+    systolicbloodPressure:Number,
+    diastolicbloodPressure:Number,
 }
 
 function AddPatientForm() {
@@ -121,9 +122,16 @@ function AddPatientForm() {
                     />
                     <TextField 
                     variant="outlined"
-                    label="Blood Pressure"
-                    name="bloodPressure"
-                    value={parseInt(val.bloodPressure)}
+                    label="Systolic Blood Pressure"
+                    name="systolicbloodPressure"
+                    value={parseInt(val.systolicbloodPressure)}
+                    onChange={handleInput}
+                    />
+                    <TextField 
+                    variant="outlined"
+                    label="Diastolic Blood Pressure"
+                    name="diastolicbloodPressure"
+                    value={parseInt(val.diastolicbloodPressure)}
                     onChange={handleInput}
                     />
                     </Grid>
