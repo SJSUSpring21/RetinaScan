@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Patient = mongoose.model("Patient");
+const Diagnosis = mongoose.model("Diagnosis");
 
 
 router.get('/fetchPatientDetails/:patientId', (req, res) => {
@@ -62,7 +63,7 @@ router.get('/getHighRiskPatients', async (req, res) => {
                 as: 'diagnostic' 
             }},
             {$match:{
-                'diagnostic.0.score': {$eq:0}
+                'diagnostic.severityScore': {$eq:0}
             }}
         ])
             .then(result => {
@@ -71,6 +72,25 @@ router.get('/getHighRiskPatients', async (req, res) => {
             })
             .catch(err => {
                 return res.status(400).json({ error: "Error while getting high risk patients" });
+            })
+    }
+    catch (err) {
+        return res.status(400).json({ error: err });
+    }
+});
+
+router.post('/updateDiagnosis/', async (req, res) => {
+    const {patientID, remarks} = req.body
+    try {
+        Diagnosis.findOneAndUpdate({ "patient_id": parseInt(patientID)}, {
+            "$set": {
+                "comments": remarks
+            }
+        }).then(result => {
+            return res.json({result: result })
+        })
+            .catch(err => {
+                return res.status(400).json({ error: "Error while updating" });
             })
     }
     catch (err) {
