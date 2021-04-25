@@ -16,9 +16,7 @@ const DiagnosisSchema = mongoose.Schema({
   comments: {
     type: String
   },
-  riscScore: {
-    type: Number
-  }
+
 });
 
 module.exports = mongoose.model('Diagnosis', DiagnosisSchema);
