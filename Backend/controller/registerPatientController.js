@@ -7,7 +7,7 @@ class RegisterPatientController {
 
     static async registerPatient(req, res) {
         try {
-            const { patientName, gender, DOB, email, diabetesType, yearOfDiabetes, age, bloodSugarLevel, cholestrolLevel, isTobaccoUser, bloodPressure } = req.body
+            const { patientName, gender, DOB, email, diabetesType, yearOfDiabetes, age, bloodSugarLevel, cholestrolLevel, isTobaccoUser, systolicbloodPressure, diastolicbloodPressure} = req.body
 
             console.log(req.body)
             Patient.findOne({ email: email }, function (err, obj) {
@@ -26,7 +26,8 @@ class RegisterPatientController {
                         bloodSugarLevel,
                         cholestrolLevel,
                         isTobaccoUser,
-                        bloodPressure,
+                        systolicbloodPressure,
+                        diastolicbloodPressure,
                         patientGenId
                     })
                     patient.save()
