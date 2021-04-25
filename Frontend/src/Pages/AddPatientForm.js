@@ -1,20 +1,22 @@
 import React, { useState, useEffect} from 'react'
 import './Add.css';
-import { Grid, TextField, makeStyles, Select, MenuItem, InputLabel } from '@material-ui/core'
+import { Grid, TextField, makeStyles, Select, MenuItem, InputLabel} from '@material-ui/core'
 import  {useForm,Form}  from '../Components/useForm'
 import Controls from '../Components/Controls'
-import inst from '../axios'
 import axios from "axios";
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator' ;
+import { format } from 'date-fns';
+
 
 const genderList = [
-    { id: 'male', title: 'Male' },
-    { id: 'female', title: 'Female' },
+    { id: 'Male', title: 'Male' },
+    { id: 'Female', title: 'Female' },
 ]
 
 const initialValues = {
-    patientName:'',
-    gender:'',
-    DOB: Date(),
+    patientName:String,
+    gender:String,
+    DOB: format(new Date(), 'yyyy/MM/dd'),
     email:'',
     diabetesType:'',
     yearOfDiabetes:Number,
@@ -26,7 +28,10 @@ const initialValues = {
     diastolicbloodPressure:Number,
 }
 
+
+
 function AddPatientForm() {
+    var msg = ''
 
     const{
         val,
@@ -39,44 +44,59 @@ function AddPatientForm() {
         axios.post('http://localhost:9000/registerPatient', val)
           .then((response) => {
             console.log(response)
+            msg.setVal(response.data)
+            
           }).catch((error) => {
             console.log(error)
         });
     }
     return (
         <>
-        
+      
         <Form>
+        <h1>Add A New Patient</h1>
             <Grid container>
                 <Grid xs={6}>
-                    <TextField 
-                    variant="outlined"
-                    label="Name"
-                    name="patientName"
-                    value={val.patientName}
-                    onChange={handleInput}
+                    <TextField
+                        required
+                        variant="outlined"
+                        label="Name"
+                        name="patientName"
+                        defaultValue = {String}
+                        onChange={handleInput}
                     />
-                    <TextField 
-                    variant="outlined"
-                    label="Email"
-                    name="email"
-                    value={val.email}
-                    onChange={handleInput}
+                    <ValidatorForm>
+                        <TextValidator
+                        required
+                        variant="outlined"
+                        label="Email"
+                        name="email"
+                        value={val.email}
+                        onChange={handleInput}
+                        validators={['isEmail']}
+                        errorMessages={['Email is not valid']}
                     />
+                    </ValidatorForm>
+
                     <Controls.DatePicker
+                        required
                         name="DOB"
                         label="Date of Birth"
                         value={val.DOB}
                         onChange={handleInput}
                     />
-                    <TextField 
-                    variant="outlined"
-                    label="Age"
-                    name="age"
-                    value={parseInt(val.age)}
-                    onChange={handleInput}
+                    <TextField
+                        required
+                        variant="outlined"
+                        label="Age"
+                        name="age"
+                        defaultValue = {Number}
+                        type="number"
+                        InputProps={{ inputProps: { min: 1} }}
+                        onChange={handleInput}
                     />
                     <Controls.RadioGroup
+                        required
                         name="gender"
                         label="Gender"
                         value={val.gender}
@@ -84,6 +104,7 @@ function AddPatientForm() {
                         items={genderList}
                     />
                     <Controls.Checkbox
+                        required
                         name="isTobaccoUser"
                         label="Uses tobacco"
                         value={val.isTobaccoUser}
@@ -92,6 +113,7 @@ function AddPatientForm() {
                     </Grid>
                     <Grid xs={6}>
                     <Controls.Select
+                        required
                         name="diabetesType" 
                         label="Type of Diabetes"
                         value={val.diabetesType}
@@ -99,56 +121,62 @@ function AddPatientForm() {
                         
                     />
                     <TextField
+                        required
                         variant="outlined"
                         name="yearOfDiabetes"
                         label="Year of Diagnosis"
-                        value={parseInt(val.yearOfDiabetes)}
+                        defaultValue = {Number}
+                        inputProps={{minLength:4, maxLength:4 }}
                         onChange={handleInput}
                     />
                     <TextField 
-                    variant="outlined"
-                    label="Sugar Level"
-                    name="bloodSugarLevel"
-                    value={parseInt(val.bloodSugarLevel)}
-                    onChange={handleInput}
+                        required
+                        variant="outlined"
+                        label="Blood Sugar Level"
+                        name="bloodSugarLevel"
+                        type="number"
+                        defaultValue = {Number}
+                        onChange={handleInput}
                     />
                     
-                    <TextField 
-                    variant="outlined"
-                    label="Cholestrol"
-                    name="cholestrolLevel"
-                    value={parseInt(val.cholestrolLevel)}
-                    onChange={handleInput}
+                    <TextField
+                        required
+                        variant="outlined"
+                        label="Cholesterol Level"
+                        name="cholestrolLevel"
+                        type="number"
+                        defaultValue = {Number}
+                        onChange={handleInput}
                     />
                     <TextField 
-                    variant="outlined"
-                    label="Systolic Blood Pressure"
-                    name="systolicbloodPressure"
-                    value={parseInt(val.systolicbloodPressure)}
-                    onChange={handleInput}
+                        required
+                        variant="outlined"
+                        label="Systolic Blood Pressure"
+                        name="systolicbloodPressure"
+                        type="number"
+                        defaultValue = {Number}
+                        onChange={handleInput}
                     />
-                    <TextField 
-                    variant="outlined"
-                    label="Diastolic Blood Pressure"
-                    name="diastolicbloodPressure"
-                    value={parseInt(val.diastolicbloodPressure)}
-                    onChange={handleInput}
+                    <TextField
+                        required
+                        variant="outlined"
+                        label="Diastolic Blood Pressure"
+                        name="diastolicbloodPressure"
+                        type="number"
+                        defaultValue = {Number}
+                        onChange={handleInput}
                     />
                     </Grid>
                     <div>
                         <Controls.Button
+                            type="reset"
                             text="Register"
                             color="default"
                             onClick={postPatientData}
                              />
                     </div>
-
-
-                </Grid>
-        
+                </Grid>        
         </Form>
-        
-
         </>
     )
 }
