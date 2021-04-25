@@ -34,6 +34,7 @@ export default class RegPatients extends Component {
             const details = response.data.result
             console.log(details)
             if(details.length>0){
+            
               this.setState({
                 patientID: details[0].patientGenId,
                 patientName: details[0].patientName,
@@ -45,11 +46,11 @@ export default class RegPatients extends Component {
                 cholestrolLevel: details[0].cholestrolLevel,
                 systolicbloodPressure: details[0].systolicbloodPressure,
                 diastolicbloodPressure: details[0].diastolicbloodPressure,
-                tobaccoUser: details[0].isTobaccoUser,
-                severityScore: details[0].severityScore,
-                severityType: details[0].diagnosisType,
-                previousRemarks: details[0].comments,
-                imageURL: details[0].imageUrl,  
+                tobaccoUser: details[0].isTobaccoUser.toString(),
+                severityScore: details[0].patientInfo[0].severityScore,
+                severityType: details[0].patientInfo[0].severityType,
+                previousRemarks: details[0].patientInfo[0].comments,
+                imageURL: details[0].patientInfo[0].imageUrl,  
               })
             }
           });
@@ -63,7 +64,7 @@ export default class RegPatients extends Component {
         axios.post('http://localhost:9000/updateDiagnosis', {patientID,remarks})
           .then((response) => {
             console.log(response)
-            this.setState({previousRemarks: remarks})  
+            this.setState({previousRemarks: remarks,remarks:''})  
           });
     }
 
@@ -93,7 +94,7 @@ export default class RegPatients extends Component {
 
 
             <br></br>
-            <img src={this.state.imageURL}/>
+            {/* <img src={this.state.imageURL}/> */}
             <form onSubmit={this.handleUpdate} className="form-update">
                 <p>Patient ID: {this.state.patientID}</p>
                 <p>Patient Name: {this.state.patientName}</p>
@@ -107,6 +108,7 @@ export default class RegPatients extends Component {
                 <p>Diastolic Blood Pressure: {this.state.diastolicbloodPressure}</p>
                 <p>Tobacco User: {this.state.tobaccoUser}</p>
                 <p>Severity Score: {this.state.severityScore}</p>
+                <p>Severity Type: {this.state.severityType}</p>
                 <p>Previous Remarks: {this.state.previousRemarks}</p>
                 <label htmlFor="inputRemarks" className="sr-only">Remarks</label>
                 <input onChange={this.remarksChangeHandler} value={this.state.remarks} type="text" name="remarks" className="form-control mb-3" autocomplete="off"/>
