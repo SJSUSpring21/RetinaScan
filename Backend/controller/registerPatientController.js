@@ -14,11 +14,24 @@ class RegisterPatientController {
                 if (obj) {
                     res.status(400).send("Patient already exists with this emailId");
                 } else {
+                    function formatDate(date) {
+                        var d = new Date(date),
+                            month = '' + (d.getMonth() + 1),
+                            day = '' + d.getDate(),
+                            year = d.getFullYear();
+                     
+                        if (month.length < 2) month = '0' + month;
+                        if (day.length < 2) day = '0' + day;
+                     
+                        return [year, month, day].join('-');
+                     }
+
+                    const d = formatDate(DOB)
                     const patientGenId = Math.random().toString().substr(2, 6)
                     const patient = new Patient({
                         patientName,
                         gender,
-                        DOB,
+                        DOB:d,
                         email,
                         diabetesType,
                         yearOfDiabetes,

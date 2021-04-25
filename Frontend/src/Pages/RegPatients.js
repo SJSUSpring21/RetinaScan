@@ -36,6 +36,7 @@ export default class RegPatients extends Component {
             if(details.length>0){
             
               this.setState({
+                setpatientID: Number,
                 patientID: details[0].patientGenId,
                 patientName: details[0].patientName,
                 age: details[0].age,
