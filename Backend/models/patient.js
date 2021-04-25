@@ -40,7 +40,11 @@ const PatientSchema = mongoose.Schema({
     type: Boolean,
     required:true
  },
- bloodPressure:{
+ systolicbloodPressure:{
+    type: Number,
+    required:true
+ },
+ diastolicbloodPressure:{
     type: Number,
     required:true
  },
