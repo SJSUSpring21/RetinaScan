@@ -43,7 +43,8 @@ export default class RegPatients extends Component {
                 diagnosedYear: details[0].yearOfDiabetes,
                 sugarLevel: details[0].bloodSugarLevel,
                 cholestrolLevel: details[0].cholestrolLevel,
-                bloodPressure: details[0].bloodPressure,
+                systolicbloodPressure: details[0].systolicbloodPressure,
+                diastolicbloodPressure: details[0].diastolicbloodPressure,
                 tobaccoUser: details[0].isTobaccoUser,
                 severityScore: details[0].severityScore,
                 severityType: details[0].diagnosisType,
@@ -102,7 +103,8 @@ export default class RegPatients extends Component {
                 <p>Diagnosed Year: {this.state.diagnosedYear}</p>
                 <p>Sugar Level: {this.state.sugarLevel}</p>
                 <p>Cholestrol Level: {this.state.cholestrolLevel}</p>
-                <p>Blood Pressure: {this.state.bloodPressure}</p>
+                <p>Systolic Blood Pressure: {this.state.systolicbloodPressure}</p>
+                <p>Diastolic Blood Pressure: {this.state.diastolicbloodPressure}</p>
                 <p>Tobacco User: {this.state.tobaccoUser}</p>
                 <p>Severity Score: {this.state.severityScore}</p>
                 <p>Previous Remarks: {this.state.previousRemarks}</p>
@@ -112,7 +114,6 @@ export default class RegPatients extends Component {
                 <button className="btn btn-lg btn-primary btn-block" type="submit">Update</button>
                
             </form>
-            <a className="btn btn-lg btn-success btn-block" href="/regpatients">Close</a>
           </div>
         );
       }
