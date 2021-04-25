@@ -106,7 +106,6 @@ export default class RegPatients extends Component {
                 <p>Tobacco User: {this.state.tobaccoUser}</p>
                 <p>Severity Score: {this.state.severityScore}</p>
                 <p>Previous Remarks: {this.state.previousRemarks}</p>
-                <p>Remarks:</p>
                 <label htmlFor="inputRemarks" className="sr-only">Remarks</label>
                 <input onChange={this.remarksChangeHandler} value={this.state.remarks} type="text" name="remarks" className="form-control mb-3" autocomplete="off"/>
                 <br></br>
