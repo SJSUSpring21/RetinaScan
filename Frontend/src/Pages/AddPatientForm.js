@@ -4,30 +4,26 @@ import { Grid, TextField, makeStyles, Select, MenuItem, InputLabel } from '@mate
 import  {useForm,Form}  from '../Components/useForm'
 import Controls from '../Components/Controls'
 import inst from '../axios'
+import axios from "axios";
 
 const genderList = [
     { id: 'male', title: 'Male' },
     { id: 'female', title: 'Female' },
 ]
 
-
 const initialValues = {
-    name:'',
+    patientName:'',
     gender:'',
-    dob: Date(),
+    DOB: Date(),
     email:'',
-    type:'',
-    year_of_diag:'',
-    age:'',
-    sugar_level:'',
-    cholestrol:'',
-    isTobaccouser:false,
-    bloodpressure:''
+    diabetesType:'',
+    yearOfDiabetes:Number,
+    age:Number,
+    bloodSugarLevel:Number,
+    cholestrolLevel:Number,
+    isTobaccoUser:false,
+    bloodPressure:Number
 }
-
-
-
-
 
 function AddPatientForm() {
 
@@ -39,9 +35,12 @@ function AddPatientForm() {
     } = useForm(initialValues)
 
     const postPatientData = async() => {
-        let res = await inst.post('/registerPatient',{
-            val})
-        .then(console.log(res))        
+        axios.post('http://localhost:9000/registerPatient', val)
+          .then((response) => {
+            console.log(response)
+          }).catch((error) => {
+            console.log(error)
+        });
     }
     return (
         <>
@@ -52,8 +51,8 @@ function AddPatientForm() {
                     <TextField 
                     variant="outlined"
                     label="Name"
-                    name="name"
-                    value={val.name}
+                    name="patientName"
+                    value={val.patientName}
                     onChange={handleInput}
                     />
                     <TextField 
@@ -64,16 +63,16 @@ function AddPatientForm() {
                     onChange={handleInput}
                     />
                     <Controls.DatePicker
-                        name="dob"
+                        name="DOB"
                         label="Date of Birth"
-                        value={val.dob}
+                        value={val.DOB}
                         onChange={handleInput}
                     />
                     <TextField 
                     variant="outlined"
                     label="Age"
                     name="age"
-                    value={val.age}
+                    value={parseInt(val.age)}
                     onChange={handleInput}
                     />
                     <Controls.RadioGroup
@@ -84,47 +83,47 @@ function AddPatientForm() {
                         items={genderList}
                     />
                     <Controls.Checkbox
-                        name="isTobaccouser"
+                        name="isTobaccoUser"
                         label="Uses tobacco"
-                        value={val.isTobaccouser}
+                        value={val.isTobaccoUser}
                         onChange={handleInput}
                     />
                     </Grid>
                     <Grid xs={6}>
                     <Controls.Select
-                        name="type" 
+                        name="diabetesType" 
                         label="Type of Diabetes"
-                        value={val.type}
+                        value={val.diabetesType}
                         onChange={handleInput}
                         
                     />
                     <TextField
                         variant="outlined"
-                        name="year_of_diag"
+                        name="yearOfDiabetes"
                         label="Year of Diagnosis"
-                        value={val.year_of_diag}
+                        value={parseInt(val.yearOfDiabetes)}
                         onChange={handleInput}
                     />
                     <TextField 
                     variant="outlined"
                     label="Sugar Level"
-                    name="sugar_level"
-                    value={val.sugar_level}
+                    name="bloodSugarLevel"
+                    value={parseInt(val.bloodSugarLevel)}
                     onChange={handleInput}
                     />
                     
                     <TextField 
                     variant="outlined"
                     label="Cholestrol"
-                    name="cholestrol"
-                    value={val.cholestrol}
+                    name="cholestrolLevel"
+                    value={parseInt(val.cholestrolLevel)}
                     onChange={handleInput}
                     />
                     <TextField 
                     variant="outlined"
                     label="Blood Pressure"
-                    name="bloodpressure"
-                    value={val.cholestrol}
+                    name="bloodPressure"
+                    value={parseInt(val.bloodPressure)}
                     onChange={handleInput}
                     />
                     </Grid>
