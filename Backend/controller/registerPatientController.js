@@ -9,6 +9,7 @@ class RegisterPatientController {
         try {
             const { patientName, gender, DOB, email, diabetesType, yearOfDiabetes, age, bloodSugarLevel, cholestrolLevel, isTobaccoUser, bloodPressure } = req.body
 
+            console.log(req.body)
             Patient.findOne({ email: email }, function (err, obj) {
                 if (obj) {
                     res.status(400).send("Patient already exists with this emailId");
