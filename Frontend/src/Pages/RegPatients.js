@@ -90,12 +90,14 @@ export default class RegPatients extends Component {
             <form onSubmit={this.handleRetrieve} className="form-getDetails">
               <label htmlFor="inputID" className="sr-only">Patient ID</label>
               <input onChange={this.patientIDChangeHandler} value={this.state.setpatientID} type="number" name="patientID" className="form-control mb-3" required autoFocus autocomplete="off"/>
+              <br></br>
               <button className="btn btn-lg btn-primary btn-block" type="submit">Enter</button>
             </form>
 
 
             <br></br>
             {/* <img src={this.state.imageURL}/> */}
+            <img src={'https://i.imgur.com/jFSkR3S.png'} alt="" height="300" style={{alignItems:'center'}}/>
             <form onSubmit={this.handleUpdate} className="form-update">
                 <p>Patient ID: {this.state.patientID}</p>
                 <p>Patient Name: {this.state.patientName}</p>
