@@ -6,7 +6,7 @@ import Controls from '../Components/Controls'
 import axios from "axios";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator' ;
 import { format } from 'date-fns';
-
+import {toast} from 'react-toastify'
 
 const genderList = [
     { id: 'Male', title: 'Male' },
@@ -31,7 +31,7 @@ const initialValues = {
 
 
 function AddPatientForm() {
-    var msg = ''
+
 
     const{
         val,
@@ -44,8 +44,16 @@ function AddPatientForm() {
         axios.post('http://localhost:9000/registerPatient', val)
           .then((response) => {
             console.log(response)
-            msg.setVal(response.data)
-            
+            if(response.status===200){
+                const CustomToast = ({closeToast})=>{
+                  return(
+                    <div style={{textAlign:"center"}}>
+                      <h4>Successfully Registered Patient!</h4>
+                    </div>
+                  )
+                }
+                toast.success(<CustomToast />, {position: toast.POSITION.TOP_CENTER, autoClose:true})
+              }
           }).catch((error) => {
             console.log(error)
         });

@@ -5,9 +5,10 @@
     margin:0;
     padding: 0;
     background-color: #2f4050;
+    position:fixed;
 }
 .SideNavbarList{
-    height: 100%;
+    height: 100vh;
     padding: 0;
     width: 100%;
 }
@@ -38,7 +39,7 @@
     flex:30%;
     display:grid;
     place-items: center;
-    
+    font-size: 1.5em;
 
 }
 
