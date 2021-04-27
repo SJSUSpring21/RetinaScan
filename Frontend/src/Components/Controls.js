@@ -1,9 +1,10 @@
-import Input from "./Input";
-import RadioGroup from "./RadioGroup";
-import Select from "./Select";
-import Checkbox from "./Checkbox";
-import DatePicker from "./DatePicker";
-import Button from "./Button";
+import Input from './Input';
+import RadioGroup from './RadioGroup';
+import Select from './Select';
+import Checkbox from './Checkbox';
+import DatePicker from './DatePicker';
+import Button from './Button';
+import UploadandPredictButton from './UploadandPredictButton'
 
 const Controls = {
     Input,
@@ -11,7 +12,8 @@ const Controls = {
     Select,
     Checkbox,
     DatePicker,
-    Button
+    Button,
+    UploadandPredictButton
 
 }
 
