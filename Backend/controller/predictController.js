@@ -32,21 +32,24 @@ exports.predict = (req, res) => {
             console.log(
                 "*********************************  Response  End    *********************"
             )
+
+            sevType = "unset"
+            switch (response.data){
+                case 0 : { sevType = "No DR"; break}
+                case 1 : { sevType = "Mild"; break}
+                case 2 : { sevType = "Moderate"; break}
+                case 3 : { sevType = "Severe"; break}
+                case 4 : { sevType = "Proliferative DR"; break}
+                default : { sevType = "unknown"}
+            }  
+
             Diagnosis.findOneAndUpdate({ "patient_id": parseInt(patientId)}, 
-            { severityScore: response.data})
+             { "$set": { "severityScore": response.data, "diagnosisType" : sevType }})
             .then( result =>{
-                sevType = "unset"
-                switch (response.data){
-                    case 0 : { sevType = "No DR"; break}
-                    case 1 : { sevType = "Mild"; break}
-                    case 2 : { sevType = "Moderate"; break}
-                    case 3 : { sevType = "Severe"; break}
-                    case 4 : { sevType = "Proliferative DR"; break}
-                    default : { sevType = "unknown"}
-                }
                 return res.status(200).send({
                     "score":response.data,
-                    "sevType":  sevType
+                    "sevType":  sevType,
+                    "result": result
                 })
             })
             .catch( err => {
@@ -54,13 +57,6 @@ exports.predict = (req, res) => {
                     error: "Error while updating severityScore to database."
                 })
             })
-
-            Diagnosis.updateOne({ "patient_id": parseInt(patientId), severityScore : "0"}, { "$set": {diagnosisType : "No DR" }})
-            Diagnosis.updateOne({ "patient_id": parseInt(patientId), severityScore : "1"}, { "$set": {diagnosisType : "Mild" }} )
-            Diagnosis.updateOne({ "patient_id": parseInt(patientId), severityScore : "2"}, { "$set": {diagnosisType : "Moderate" }})
-            Diagnosis.updateOne({ "patient_id": parseInt(patientId), severityScore : "3"}, { "$set": {diagnosisType : "Severe" }})
-            Diagnosis.updateOne({ "patient_id": parseInt(patientId), severityScore : "4"}, { "$set": {diagnosisType : "Proliferative DR" }})
-
      })
         .catch(err => {
             console.log(err)
