@@ -30,7 +30,7 @@ router.post('/retinaImageUpload', (req, res) => {
         if (isEmpty(imageName) || isEmpty(imageLocation)) {
           res.status(400).send("Image data doesn't exist");
         } else {
-          const filter = { "patient_id": 642488 };
+          const filter = { "patient_id": patientId };
           const options = { upsert: true };
           const updateDoc = {
             "$set": { 
