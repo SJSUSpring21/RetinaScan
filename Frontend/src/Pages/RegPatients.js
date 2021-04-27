@@ -93,10 +93,8 @@ export default class RegPatients extends Component {
     singleFileUploadHandler = (event) => {
       const imageData = new FormData();
       if (this.state.selectedFile) {
-        imageData.append("patientId", this.state.patientId);
         imageData.append('retinaImage', this.state.selectedFile, this.state.selectedFile.name);
-        //const patientId = this.state.patientId
-        axios.post('http://localhost:9000/retinaImageUpload', imageData, {
+        axios.post(`http://localhost:9000/retinaImageUpload/${this.state.patientId}`, imageData, {
           headers: {
               'accept': 'application/json',
               'Accept-Language': 'en-US,en;q=0.8',

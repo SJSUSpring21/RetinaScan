@@ -13,9 +13,9 @@ const s3 = new aws.S3({
   Bucket: 'retinascans3bucket'
 });
 
-router.post('/retinaImageUpload', (req, res) => {
-  const patientId = req.body.patientId;
-  console.log(patientId)
+router.post('/retinaImageUpload/:patientId', (req, res) => {
+  const patientId = req.params.patientId;
+  console.log("Patient Id"+req.params.patientId)
   retinaImg(req, res, (error) => {
     if (error) {
       console.log('Error on image upload', error);
