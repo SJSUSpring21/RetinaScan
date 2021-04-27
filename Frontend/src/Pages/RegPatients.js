@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import './RegPatients.css';
+// import './RegPatients.css';
 
 
 export default class RegPatients extends Component {
@@ -34,7 +34,6 @@ export default class RegPatients extends Component {
             const details = response.data.result
             console.log(details)
             if(details.length>0){
-            
               this.setState({
                 setpatientID: Number,
                 patientID: details[0].patientGenId,
@@ -49,7 +48,7 @@ export default class RegPatients extends Component {
                 diastolicbloodPressure: details[0].diastolicbloodPressure,
                 tobaccoUser: details[0].isTobaccoUser.toString(),
                 severityScore: details[0].patientInfo[0].severityScore,
-                severityType: details[0].patientInfo[0].severityType,
+                severityType: details[0].patientInfo[0].diagnosisType,
                 previousRemarks: details[0].patientInfo[0].comments,
                 imageURL: details[0].patientInfo[0].imageUrl,  
               })
@@ -88,7 +87,7 @@ export default class RegPatients extends Component {
         return (
           <div className="rp">
             <form onSubmit={this.handleRetrieve} className="form-getDetails">
-              <label htmlFor="inputID" className="sr-only">Patient ID</label>
+              <label style={{fontSize:20}}htmlFor="inputID" className="sr-only">Enter Patient ID</label>
               <input onChange={this.patientIDChangeHandler} value={this.state.setpatientID} type="number" name="patientID" className="form-control mb-3" required autoFocus autocomplete="off"/>
               <br></br>
               <button className="btn btn-lg btn-primary btn-block" type="submit">Enter</button>
@@ -105,10 +104,10 @@ export default class RegPatients extends Component {
                 <p>Gender: {this.state.gender}</p>
                 <p>Diabetes Type: {this.state.dType}</p>
                 <p>Diagnosed Year: {this.state.diagnosedYear}</p>
-                <p>Sugar Level: {this.state.sugarLevel}</p>
-                <p>Cholestrol Level: {this.state.cholestrolLevel}</p>
-                <p>Systolic Blood Pressure: {this.state.systolicbloodPressure}</p>
-                <p>Diastolic Blood Pressure: {this.state.diastolicbloodPressure}</p>
+                <p>Sugar Level (mg/dL): {this.state.sugarLevel}</p>
+                <p>Cholestrol Level (mg/dL): {this.state.cholestrolLevel}</p>
+                <p>Systolic Blood Pressure (mm Hg): {this.state.systolicbloodPressure}</p>
+                <p>Diastolic Blood Pressure (mm Hg): {this.state.diastolicbloodPressure}</p>
                 <p>Tobacco User: {this.state.tobaccoUser}</p>
                 <p>Severity Score: {this.state.severityScore}</p>
                 <p>Severity Type: {this.state.severityType}</p>

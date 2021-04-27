@@ -7,6 +7,7 @@ import axios from "axios";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator' ;
 import { format } from 'date-fns';
 import {toast} from 'react-toastify'
+import validator from 'validator'
 
 const genderList = [
     { id: 'Male', title: 'Male' },
@@ -41,22 +42,25 @@ function AddPatientForm() {
     } = useForm(initialValues)
 
     const postPatientData = async() => {
-        axios.post('http://localhost:9000/registerPatient', val)
-          .then((response) => {
-            console.log(response)
-            if(response.status===200){
-                const CustomToast = ({closeToast})=>{
-                  return(
-                    <div style={{textAlign:"center"}}>
-                      <h4>Successfully Registered Patient!</h4>
-                    </div>
-                  )
+        if (validator.isEmail(val.email)) {
+            axios.post('http://localhost:9000/registerPatient', val)
+            .then((response) => {
+              console.log(response)
+              if(response.status===200){
+                  const CustomToast = ({closeToast})=>{
+                    return(
+                      <div style={{textAlign:"center"}}>
+                        <h4>Successfully Registered Patient!</h4>
+                      </div>
+                    )
+                  }
+                  toast.success(<CustomToast />, {position: toast.POSITION.TOP_CENTER, autoClose:true})
                 }
-                toast.success(<CustomToast />, {position: toast.POSITION.TOP_CENTER, autoClose:true})
-              }
-          }).catch((error) => {
-            console.log(error)
-        });
+            }).catch((error) => {
+              console.log(error)
+          });
+
+        }
     }
     return (
         <>
