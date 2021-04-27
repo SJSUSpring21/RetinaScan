@@ -37,8 +37,7 @@ const useStyles = makeStyles(theme => ({
 // searchInput:{
 //   marginBottom: theme.spacing(60),
 //   width:'75%'
-  
-}
+// }
 }))
 const cells = [
   { id: 'Name', label: 'Patient Name' },
@@ -51,7 +50,25 @@ const cells = [
 // const handleSearch = e =>{
 //   return e.target;
 // }
+function ViewAndPredict() {
 
+  const[patientDetails,SetpatientDetails] = useState();
+
+useEffect(()=> {
+   axios.get('http://localhost:9000/fetchAllPatientDetails')
+  .then((response) => {
+    const [patientDetails]=response.data.result;
+    SetpatientDetails({
+      ...patientDetails,
+      severityScore: response.data[0].severityScore,
+      severityType: response.data[0].severityType
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}, [])
+  
 const uploadImageHandle = async() =>{
   const imageData = new FormData();
   axios.post('http://localhost:5000/retinaImageUpload', imageData, {
@@ -104,24 +121,7 @@ const predictHandle = async() => {
   .then((response)=>console.log(response))
   .catch((err)=>console.log(err))
 }
-function ViewAndPredict() {
 
-  const[patientDetails,SetpatientDetails] = useState();
-
-useEffect(()=> {
-   axios.get('http://localhost:9000/fetchAllPatientDetails')
-  .then((response) => {
-    const [patientDetails]=response.data.result;
-    SetpatientDetails({
-      ...patientDetails,
-      severityScore: response.data[0].severityScore,
-      severityType: response.data[0].severityType
-    })
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-}, [])
 
   
   const classes = useStyles();
