@@ -5,7 +5,6 @@ import io
 import numpy as np
 import tensorflow as tf
 from flask import Flask, request, redirect, url_for, flash, jsonify
-import pickle as p
 import json
 
 app = Flask(__name__)
