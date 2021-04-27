@@ -8,13 +8,14 @@ const mongoose = require('mongoose');
 const Diagnosis = mongoose.model("Diagnosis");
 
 const s3 = new aws.S3({
-  accessKeyId: 'AKIAYOG23DSWUPHKCIU6',
-  secretAccessKey: '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',
+  accessKeyId: 'AKIAYOG23DSW6Y7JFHPQ',
+  secretAccessKey: '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',
   Bucket: 'retinascans3bucket'
 });
 
 router.post('/retinaImageUpload', (req, res) => {
   const patientId = req.body.patientId;
+  console.log(patientId)
   retinaImg(req, res, (error) => {
     if (error) {
       console.log('Error on image upload', error);
@@ -30,7 +31,7 @@ router.post('/retinaImageUpload', (req, res) => {
         if (isEmpty(imageName) || isEmpty(imageLocation)) {
           res.status(400).send("Image data doesn't exist");
         } else {
-          const filter = { "patient_id": 642488 };
+          const filter = { "patient_id": patientId };
           const options = { upsert: true };
           const updateDoc = {
             "$set": { 
@@ -58,6 +59,7 @@ const retinaImg = multer({
   }),
   limits: { fileSize: 2000000 }, // 2 MB
   fileFilter: function (req, file, cb) {
+    console.log(file.originalname)
     validateFileType(file, cb);
   }
 }).single('retinaImage');

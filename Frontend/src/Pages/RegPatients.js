@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
-// import './RegPatients.css';
+import './RegPatients.css';
+import {toast} from 'react-toastify'
+//import $ from 'jquery';
 
 
 export default class RegPatients extends Component {
@@ -8,7 +10,7 @@ export default class RegPatients extends Component {
         super(props);
         this.state = {
           setpatientID: Number,
-          patientID: Number,
+          patientId: Number,
           patientName: String,
           age: Number,
           gender: String,
@@ -23,6 +25,7 @@ export default class RegPatients extends Component {
           previousRemarks: String,
           remarks: String,
           imageURL: String,  
+          selectedFile: null,
         };
     }
 
@@ -36,7 +39,7 @@ export default class RegPatients extends Component {
             if(details.length>0){
               this.setState({
                 setpatientID: Number,
-                patientID: details[0].patientGenId,
+                patientId: details[0].patientGenId,
                 patientName: details[0].patientName,
                 age: details[0].age,
                 gender: details[0].gender,
@@ -57,18 +60,6 @@ export default class RegPatients extends Component {
     }
 
 
-    handleUpdate = (e) => {
-        e.preventDefault();
-        const patientID = this.state.patientID
-        const remarks = this.state.remarks
-        axios.post('http://localhost:9000/updateDiagnosis', {patientID,remarks})
-          .then((response) => {
-            console.log(response)
-            this.setState({previousRemarks: remarks,remarks:''})  
-          });
-    }
-
-
     patientIDChangeHandler = (e) => {
         this.setState({
           setpatientID: e.target.value
@@ -82,6 +73,101 @@ export default class RegPatients extends Component {
         });
     }
 
+    handleUpdate = (e) => {
+      e.preventDefault();
+      const patientID = this.state.patientId
+      const remarks = this.state.remarks
+      axios.post('http://localhost:9000/updateDiagnosis', {patientID,remarks})
+        .then((response) => {
+          console.log(response)
+          this.setState({previousRemarks: remarks,remarks:''})  
+        });
+  }
+
+    singleFileChangedHandler = (event) => {
+      this.setState({
+          selectedFile: event.target.files[0]
+      });
+    };
+
+    singleFileUploadHandler = (event) => {
+      const imageData = new FormData();
+      if (this.state.selectedFile) {
+        imageData.append("patientId", this.state.patientId);
+        imageData.append('retinaImage', this.state.selectedFile, this.state.selectedFile.name);
+        //const patientId = this.state.patientId
+        axios.post('http://localhost:9000/retinaImageUpload', imageData, {
+          headers: {
+              'accept': 'application/json',
+              'Accept-Language': 'en-US,en;q=0.8',
+              'Content-Type': `multipart/form-data; boundary=${imageData._boundary}`,
+          }
+      })
+            .then((response) => {
+                if (200 === response.status) {
+                    //file size is larger than 2MB.
+                    if (response.data.error) {
+                      console.log(response)
+                      
+                        // if ('LIMIT_FILE_SIZE' === response.data.error.code) {
+                        //     this.displayAlert('Max size: 2MB', 'red');
+                        // } else {
+                        //     console.log("Printing response data" + response.data);
+                        //     // If not the given file type
+                        //     this.displayAlert(response.data.error, 'red');
+                        // }
+    
+                    } else {
+                        let fileName = response.data;
+                        console.log('fileName', fileName);
+                        // this.displayAlert('File Uploaded', '#3089cf');
+                        const CustomToast = ({closeToast})=>{
+                          return(
+                            <div style={{textAlign:"center"}}>
+                              <h4>Successfully Uploaded the Image!</h4>
+                            </div>
+                          )
+                          
+                        }
+                        toast.success(<CustomToast />, {position: toast.POSITION.BOTTOM_CENTER, autoClose:true})
+                    }
+                }
+            }).catch((error) => {
+              console.log(error)
+                // this.displayAlert(error, 'red');
+            });
+    } else {
+        console.log("File not providedd")
+    }
+  };
+
+  // displayAlert = (message, background = '#3089cf') => {
+  //   let alertContainer = document.querySelector('#alert-container'),
+  //       alertEl = document.createElement('div'),
+  //       textNode = document.createTextNode(message);
+  //   alertEl.setAttribute('class', 'oc-alert-pop-up');
+  //   $(alertEl).css('background', background);
+  //   alertEl.appendChild(textNode);
+  //   alertContainer.appendChild(alertEl);
+  //   setTimeout(function () {
+  //       $(alertEl).fadeOut('slow');
+  //       $(alertEl).remove();
+  //   }, 3000);
+  // };
+
+  handlePredict = (e) => {
+    e.preventDefault();
+    axios.post(`http://localhost:9000/predict/${this.state.patientId}`)
+      .then((response) => {
+        console.log(response)
+        
+        this.setState({
+          severityScore: response.data.score,
+          severityType: response.data.sevType
+ 
+        })
+      });
+  }
 
     render() {
         return (
@@ -98,7 +184,7 @@ export default class RegPatients extends Component {
             {/* <img src={this.state.imageURL}/> */}
             <img src={'https://i.imgur.com/jFSkR3S.png'} alt="" height="300" style={{alignItems:'center'}}/>
             <form onSubmit={this.handleUpdate} className="form-update">
-                <p>Patient ID: {this.state.patientID}</p>
+                <p>Patient ID: {this.state.patientId}</p>
                 <p>Patient Name: {this.state.patientName}</p>
                 <p>Age: {this.state.age}</p>
                 <p>Gender: {this.state.gender}</p>
@@ -116,8 +202,17 @@ export default class RegPatients extends Component {
                 <input onChange={this.remarksChangeHandler} value={this.state.remarks} type="text" name="remarks" className="form-control mb-3" autocomplete="off"/>
                 <br></br>
                 <button className="btn btn-lg btn-primary btn-block" type="submit">Update</button>
-               
             </form>
+
+            <div className="card-body">
+                        <p className="card-text">Please upload Retina image</p>
+                        <input type="file" webkitdirectory onChange={this.singleFileChangedHandler} />
+                        <div className="mt-5">
+                            <button className="btn btn-info" onClick={this.singleFileUploadHandler}>Upload Retina Image</button>
+                        </div>
+            </div>
+            <br></br>
+            <button className="btn btn-info" onClick={this.handlePredict}>Predict Retina Score</button>
           </div>
         );
       }
