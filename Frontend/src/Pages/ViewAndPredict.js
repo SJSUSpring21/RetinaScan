@@ -37,7 +37,8 @@ const useStyles = makeStyles(theme => ({
 // searchInput:{
 //   marginBottom: theme.spacing(60),
 //   width:'75%'
-// }
+
+}
 }))
 const cells = [
   { id: 'Name', label: 'Patient Name' },
@@ -50,25 +51,7 @@ const cells = [
 // const handleSearch = e =>{
 //   return e.target;
 // }
-function ViewAndPredict() {
 
-  const[patientDetails,SetpatientDetails] = useState();
-
-useEffect(()=> {
-   axios.get('http://localhost:9000/fetchAllPatientDetails')
-  .then((response) => {
-    const [patientDetails]=response.data.result;
-    SetpatientDetails({
-      ...patientDetails,
-      severityScore: response.data[0].severityScore,
-      severityType: response.data[0].severityType
-    })
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-}, [])
-  
 const uploadImageHandle = async() =>{
   const imageData = new FormData();
   axios.post('http://localhost:5000/retinaImageUpload', imageData, {
@@ -100,7 +83,7 @@ const uploadImageHandle = async() =>{
         // }, else {
         //     displayAlert('Please upload file', 'red');
         // }
-   
+
 
 const displayAlert = (message, background = '#3089cf') => {
   let alertContainer = document.querySelector('#alert-container'),
@@ -121,12 +104,29 @@ const predictHandle = async() => {
   .then((response)=>console.log(response))
   .catch((err)=>console.log(err))
 }
+function ViewAndPredict() {
+
+  const[patientDetails,SetpatientDetails] = useState();
+
+useEffect(()=> {
+   axios.get('http://localhost:9000/fetchAllPatientDetails')
+  .then((response) => {
+    const [patientDetails]=response.data.result;
+    SetpatientDetails({
+      ...patientDetails,
+      severityScore: response.data[0].severityScore,
+      severityType: response.data[0].severityType
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}, [])
 
 
-  
   const classes = useStyles();
   // const [records, setRecords] = useState(SetpatientDetails(patientDetails));
-  
+
   const {
     TableContainer,
     TblHead
@@ -151,7 +151,7 @@ const predictHandle = async() => {
           startIcon={<AddIcon />}
           className={classes.newButton} >Add new patient</Button>
         </Link>  
-        
+
        <TableContainer>
        <TblHead />
         <TableBody>
@@ -167,19 +167,19 @@ const predictHandle = async() => {
                     color="primary"
                     onClick={uploadImageHandle}
                     text="Upload" />
-                    
+
                     <Controls.ActionButton
                     color="secondary"
                     onClick={predictHandle}
                     text="Predict" />
-                    
+
                 </TableCell>
               </TableRow>
 
             )) 
               } 
         </TableBody>
-       
+
        </TableContainer>
        <Button 
           variant="outlined"
@@ -189,7 +189,7 @@ const predictHandle = async() => {
           variant="outlined"
           startIcon={<SearchIcon />}
           className={classes.predictButton} >Predict </Button>
-       
+
        </> 
     )
 }
