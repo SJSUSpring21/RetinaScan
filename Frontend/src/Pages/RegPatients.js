@@ -118,6 +118,9 @@ export default class RegPatients extends Component {
                     } else {
                         let fileName = response.data;
                         console.log('fileName', fileName);
+                        this.setState({
+                          imageURL: response.data.imageLocation
+                        })
                         // this.displayAlert('File Uploaded', '#3089cf');
                         const CustomToast = ({closeToast})=>{
                           return(
@@ -158,12 +161,19 @@ export default class RegPatients extends Component {
     axios.post(`http://localhost:9000/predict/${this.state.patientId}`)
       .then((response) => {
         console.log(response)
-        
         this.setState({
           severityScore: response.data.score,
           severityType: response.data.sevType
- 
         })
+        const CustomToast = ({closeToast})=>{
+          return(
+            <div style={{textAlign:"center"}}>
+              <h4>Successfully Predicted with score: {this.state.severityScore}</h4>
+            </div>
+          )
+          
+        }
+        toast.success(<CustomToast />, {position: toast.POSITION.BOTTOM_CENTER, autoClose:true})
       });
   }
 
@@ -179,8 +189,8 @@ export default class RegPatients extends Component {
 
 
             <br></br>
-            {/* <img src={this.state.imageURL}/> */}
-            <img src={'https://i.imgur.com/jFSkR3S.png'} alt="" height="300" style={{alignItems:'center'}}/>
+            {/* 'https://i.imgur.com/jFSkR3S.png' */}
+            <img src={this.state.imageURL} alt="" height="300" style={{alignItems:'center'}}/>
             <form onSubmit={this.handleUpdate} className="form-update">
                 <p>Patient ID: {this.state.patientId}</p>
                 <p>Patient Name: {this.state.patientName}</p>
