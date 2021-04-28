@@ -58,6 +58,14 @@ function AddPatientForm() {
                 }
             }).catch((error) => {
               console.log(error)
+              const CustomToast1 = ({closeToast})=>{
+                return(
+                  <div style={{textAlign:"center"}}>
+                    <h4>Error while Registering Patient!</h4>
+                  </div>
+                )
+              }
+              toast.error(<CustomToast1 />, {position: toast.POSITION.TOP_CENTER, autoClose:true})
               
           });
         }
