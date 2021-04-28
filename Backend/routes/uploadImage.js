@@ -8,13 +8,14 @@ const mongoose = require('mongoose');
 const Diagnosis = mongoose.model("Diagnosis");
 
 const s3 = new aws.S3({
-  accessKeyId: 'AKIAYOG23DSWUPHKCIU6',
-  secretAccessKey: '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',
+  accessKeyId: 'AKIAYOG23DSW6Y7JFHPQ',
+  secretAccessKey: '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',
   Bucket: 'retinascans3bucket'
 });
 
 router.post('/retinaImageUpload', (req, res) => {
   const patientId = req.body.patientId;
+  console.log(patientId);
   retinaImg(req, res, (error) => {
     if (error) {
       console.log('Error on image upload', error);
@@ -39,7 +40,8 @@ router.post('/retinaImageUpload', (req, res) => {
           };
           Diagnosis.findOneAndUpdate(filter, updateDoc, options, function (err, doc) {
             if (err) res.send(500, { error: err });
-            res.send('Succesfully saved retina image');
+            //res.send('Succesfully saved retina image ' + imageLocation);
+            res.status(200).json({"imageLocation": imageLocation})
           });
         }
       }
