@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import axios from "axios";
 import './RegPatients.css';
 import {toast} from 'react-toastify'
-//import $ from 'jquery';
-
 
 export default class RegPatients extends Component {
     constructor(props) {
@@ -106,15 +104,6 @@ export default class RegPatients extends Component {
                     //file size is larger than 2MB.
                     if (response.data.error) {
                       console.log(response)
-                      
-                        // if ('LIMIT_FILE_SIZE' === response.data.error.code) {
-                        //     this.displayAlert('Max size: 2MB', 'red');
-                        // } else {
-                        //     console.log("Printing response data" + response.data);
-                        //     // If not the given file type
-                        //     this.displayAlert(response.data.error, 'red');
-                        // }
-    
                     } else {
                         let fileName = response.data;
                         console.log('fileName', fileName);
@@ -135,26 +124,19 @@ export default class RegPatients extends Component {
                 }
             }).catch((error) => {
               console.log(error)
-                // this.displayAlert(error, 'red');
+              const CustomToast1 = ({closeToast})=>{
+                return(
+                  <div style={{textAlign:"center"}}>
+                    <h4>Error while Uploading the Image!</h4>
+                  </div>
+                )
+              }
+              toast.error(<CustomToast1 />, {position: toast.POSITION.TOP_CENTER, autoClose:true})
             });
     } else {
         console.log("File not providedd")
     }
   };
-
-  // displayAlert = (message, background = '#3089cf') => {
-  //   let alertContainer = document.querySelector('#alert-container'),
-  //       alertEl = document.createElement('div'),
-  //       textNode = document.createTextNode(message);
-  //   alertEl.setAttribute('class', 'oc-alert-pop-up');
-  //   $(alertEl).css('background', background);
-  //   alertEl.appendChild(textNode);
-  //   alertContainer.appendChild(alertEl);
-  //   setTimeout(function () {
-  //       $(alertEl).fadeOut('slow');
-  //       $(alertEl).remove();
-  //   }, 3000);
-  // };
 
   handlePredict = (e) => {
     e.preventDefault();
@@ -168,13 +150,23 @@ export default class RegPatients extends Component {
         const CustomToast = ({closeToast})=>{
           return(
             <div style={{textAlign:"center"}}>
-              <h4>Successfully Predicted with score: {this.state.severityScore}</h4>
+              <h4>Successfully Predicted with Score: {this.state.severityScore}</h4>
             </div>
           )
           
         }
         toast.success(<CustomToast />, {position: toast.POSITION.BOTTOM_CENTER, autoClose:true})
-      });
+      }).catch((error) => {
+        console.log(error)
+        const CustomToast1 = ({closeToast})=>{
+          return(
+            <div style={{textAlign:"center"}}>
+              <h4>Error while Prediciting Score!</h4>
+            </div>
+          )
+        }
+        toast.error(<CustomToast1 />, {position: toast.POSITION.TOP_CENTER, autoClose:true})
+      });;
   }
 
     render() {
