@@ -40,7 +40,8 @@ router.post('/retinaImageUpload/:patientId', (req, res) => {
           };
           Diagnosis.findOneAndUpdate(filter, updateDoc, options, function (err, doc) {
             if (err) res.send(500, { error: err });
-            res.send('Succesfully saved retina image');
+            //res.send('Succesfully saved retina image ' + imageLocation);
+            res.status(200).json({"imageLocation": imageLocation})
           });
         }
       }
