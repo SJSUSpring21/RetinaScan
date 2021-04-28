@@ -155,7 +155,7 @@ function AddPatientForm() {
                     <TextField 
                         required
                         variant="outlined"
-                        label="Blood Sugar Level"
+                        label="Blood Sugar Level (mg/dL) - 1/2 hours after eating "
                         name="bloodSugarLevel"
                         type="number"
                         defaultValue = {Number}
@@ -165,7 +165,7 @@ function AddPatientForm() {
                     <TextField
                         required
                         variant="outlined"
-                        label="Cholesterol Level"
+                        label="Cholesterol Level (mg/dL)"
                         name="cholestrolLevel"
                         type="number"
                         defaultValue = {Number}
@@ -174,7 +174,7 @@ function AddPatientForm() {
                     <TextField 
                         required
                         variant="outlined"
-                        label="Systolic Blood Pressure"
+                        label="Systolic Blood Pressure (mm Hg)"
                         name="systolicbloodPressure"
                         type="number"
                         defaultValue = {Number}
@@ -183,7 +183,7 @@ function AddPatientForm() {
                     <TextField
                         required
                         variant="outlined"
-                        label="Diastolic Blood Pressure"
+                        label="Diastolic Blood Pressure (mm Hg)"
                         name="diastolicbloodPressure"
                         type="number"
                         defaultValue = {Number}
