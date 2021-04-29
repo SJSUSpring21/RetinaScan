@@ -10,7 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios';
 import Controls from '../Components/Controls';
 import { Search } from "@material-ui/icons";
-import $ from 'jquery';
+import {toast} from 'react-toastify'
 
 const useStyles = makeStyles(theme => ({  
   pageContent: {
@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme => ({
     right: '10px',
     marginTop: theme.spacing(2)
 },
+uploadButton:{
+  textDecoration:'none'
+}
 // uploadButton:{
 //   position: 'absolute',
 //   right: '150px',
@@ -37,8 +40,8 @@ const useStyles = makeStyles(theme => ({
 // searchInput:{
 //   marginBottom: theme.spacing(60),
 //   width:'75%'
-
-}
+  
+// }
 }))
 const cells = [
   { id: 'Name', label: 'Patient Name' },
@@ -52,81 +55,65 @@ const cells = [
 //   return e.target;
 // }
 
-const uploadImageHandle = async() =>{
-  const imageData = new FormData();
-  axios.post('http://localhost:5000/retinaImageUpload', imageData, {
-                headers: {
-                    'accept': 'application/json',
-                    'Accept-Language': 'en-US,en;q=0.8',
-                    'Content-Type': `multipart/form-data; boundary=${imageData._boundary}`,
-                }
-            })
-                .then((response) => {
-                    if (200 === response.status) {                        
-                        if (response.data.error) {
-                            if ('LIMIT_FILE_SIZE' === response.data.error.code) {
-                                displayAlert('Max size: 2MB', 'red');
-                            } else {
-                                console.log("Printing response data" + response.data);
-                                displayAlert(response.data.error, 'red');
-                            }
-                        } else {
-                            let fileName = response.data;
-                            console.log('fileName', fileName);
-                            displayAlert('File Uploaded', '#3089cf');
-                        }
-                    }
-                }).catch((error) => {
-                    displayAlert(error, 'red');
-                });
-              };
-        // }, else {
-        //     displayAlert('Please upload file', 'red');
-        // }
 
 
-const displayAlert = (message, background = '#3089cf') => {
-  let alertContainer = document.querySelector('#alert-container'),
-      alertEl = document.createElement('div'),
-      textNode = document.createTextNode(message);
-  alertEl.setAttribute('class', 'oc-alert-pop-up');
-  $(alertEl).css('background', background);
-  alertEl.appendChild(textNode);
-  alertContainer.appendChild(alertEl);
-  setTimeout(function () {
-      $(alertEl).fadeOut('slow');
-      $(alertEl).remove();
-  }, 3000);
-};
-
-const predictHandle = async() => {
-  axios.post(`http://localhost:9000/predict/${patientDetails.patientID}`)
-  .then((response)=>console.log(response))
-  .catch((err)=>console.log(err))
-}
 function ViewAndPredict() {
 
-  const[patientDetails,SetpatientDetails] = useState();
+  const [PredictPatient,SetpredictPatient] = useState([])
+const predictHandle = event => {
+  event.preventDefault();
+  
+    axios.post(`http://localhost:9000/predict/${this.state.patientId}`)
+      .then((response) => {
+        console.log(response)
+        const PredictPatient = response.data.result;
+        SetpredictPatient(PredictPatient)
+        const CustomToast = ({closeToast})=>{
+          return(
+            <div style={{textAlign:"center"}}>
+              <h4>Successfully Predicted with Score: {PredictPatient.severityScore}</h4>
+            </div>
+          )
+          
+        }
+        toast.success(<CustomToast />, {position: toast.POSITION.BOTTOM_CENTER, autoClose:true})
+      }).catch((error) => {
+        console.log(error)
+        const CustomToast1 = ({closeToast})=>{
+          return(
+            <div style={{textAlign:"center"}}>
+              <h4>Error while Prediciting Score!</h4>
+            </div>
+          )
+        }
+        toast.error(<CustomToast1 />, {position: toast.POSITION.TOP_CENTER, autoClose:true})
+      });;
+  
+
+}
+  const[patientDetails,SetpatientDetails] = useState([]);
 
 useEffect(()=> {
    axios.get('http://localhost:9000/fetchAllPatientDetails')
   .then((response) => {
-    const [patientDetails]=response.data.result;
-    SetpatientDetails({
-      ...patientDetails,
-      severityScore: response.data[0].severityScore,
-      severityType: response.data[0].severityType
-    })
+    const patientDetails= response.data.result;
+     //console.log(patientDetails)
+    SetpatientDetails(patientDetails)
+    console.log(patientDetails)
+    //patientDetails.map((patientDetail)=>console.log(patientDetail.patientName));
+    // console.log(patientDetails[0].allPatientInfo[0].severityScore);
   })
   .catch((err) => {
     console.log(err);
   })
 }, [])
 
-
+// const uploadImageHandle = async() =>{
+// }
+  
   const classes = useStyles();
   // const [records, setRecords] = useState(SetpatientDetails(patientDetails));
-
+  
   const {
     TableContainer,
     TblHead
@@ -151,45 +138,63 @@ useEffect(()=> {
           startIcon={<AddIcon />}
           className={classes.newButton} >Add new patient</Button>
         </Link>  
-
+       
        <TableContainer>
        <TblHead />
-        <TableBody>
-            {
-              patientDetails.map(item =>
-              (<TableRow key={item.id}>
-                <TableCell>{item.patientname}</TableCell>
-                <TableCell>{item.patientId}</TableCell>
-                <TableCell>{item.severityScore}</TableCell>
-                <TableCell>{item.severityType}</TableCell>
+       
+         <TableBody>
+             {
+               
+               patientDetails.map((patientDetails) =>
+               (
+               <TableRow >
+               <TableCell>{patientDetails.patientName}</TableCell>
+               <TableCell>{patientDetails.patientGenId}</TableCell>
+               
+               {/* <TableCell>{patientDetails[0].allPatientInfo[0].severityScore}</TableCell> */}
+               <TableCell>{
+               patientDetails.allPatientInfo.map((item) => {if(item.severityScore)
+                                                              {return item.severityScore}
+                                                              else return "-"})}</TableCell>
+              <TableCell>{
+               patientDetails.allPatientInfo.map((item) => {if(item.diagnosisType)
+                                                              {return item.diagnosisType}
+                                                              else return "-"})}</TableCell>
                 <TableCell>
-                  <Controls.ActionButton
-                    color="primary"
-                    onClick={uploadImageHandle}
-                    text="Upload" />
+                <Link to="/regpatients">
+			           <Button 
+                     variant="outlined"
+                      // startIcon={<PublishIcon />}
+                      // onClick={uploadImageHandle}
+                      className={classes.uploadButton} >Upload </Button>
+                  </Link>
+                    
+                    <Button 
+                      variant="outlined"
+                      //  startIcon={<SearchIcon />}
+                      onClick={predictHandle}
+                      className={classes.predictButton} >Predict </Button>
+                    
+                 </TableCell>   
 
-                    <Controls.ActionButton
-                    color="secondary"
-                    onClick={predictHandle}
-                    text="Predict" />
-
-                </TableCell>
-              </TableRow>
-
-            )) 
-              } 
-        </TableBody>
-
+               </TableRow> 
+               ))
+              
+              
+             }    
+                 
+        </TableBody> 
+       
        </TableContainer>
-       <Button 
+       {/* <Button 
           variant="outlined"
           startIcon={<PublishIcon />}
           className={classes.uploadButton} >Upload </Button>
         <Button 
           variant="outlined"
           startIcon={<SearchIcon />}
-          className={classes.predictButton} >Predict </Button>
-
+          className={classes.predictButton} >Predict </Button> */}
+       
        </> 
     )
 }
