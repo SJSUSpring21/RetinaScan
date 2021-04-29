@@ -59,19 +59,19 @@ const cells = [
 
 function ViewAndPredict() {
 
-  const [PredictPatient,SetpredictPatient] = useState([])
+  const [predictPatient,SetpredictPatient] = useState([])
 const predictHandle = event => {
   event.preventDefault();
   
-    axios.post(`http://localhost:9000/predict/${this.state.patientId}`)
+    axios.post(`http://localhost:9000/predict/${predictPatient.patientId}`)
       .then((response) => {
         console.log(response)
         const PredictPatient = response.data.result;
-        SetpredictPatient(PredictPatient)
+        SetpredictPatient(predictPatient)
         const CustomToast = ({closeToast})=>{
           return(
             <div style={{textAlign:"center"}}>
-              <h4>Successfully Predicted with Score: {PredictPatient.severityScore}</h4>
+              <h4>Successfully Predicted with Score: {predictPatient.severityScore}</h4>
             </div>
           )
           
