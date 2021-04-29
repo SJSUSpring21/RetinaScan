@@ -122,7 +122,7 @@ useEffect(()=> {
        <>
        {/* <Toolbar>
           <Controls.Input
-            label="Search Employees"
+            label="Search"
             className={classes.searchInput}
             InputProps={{
                         startAdornment: (<InputAdornment position="start">
