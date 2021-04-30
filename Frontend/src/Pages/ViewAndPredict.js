@@ -5,8 +5,6 @@ import { withRouter } from 'react-router';
 import ViewandPredictTable  from '../Components/ViewandPredictTable'
 import { makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment, Input } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import PublishIcon from '@material-ui/icons/Publish';
-import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios';
 import Controls from '../Components/Controls';
 import { Search } from "@material-ui/icons";
@@ -125,13 +123,12 @@ useEffect(()=> {
                
                {/* <TableCell>{patientDetails[0].allPatientInfo[0].severityScore}</TableCell> */}
                <TableCell>{
-               patientDetails.allPatientInfo.map((item) => {if(item.severityScore)
-                                                              {return item.severityScore}
-                                                              else return "-"})}</TableCell>
+               patientDetails.allPatientInfo.map((item) => 
+                                                        {return item.severityScore})}</TableCell>
               <TableCell>{
-               patientDetails.allPatientInfo.map((item) => {if(item.diagnosisType)
-                                                              {return item.diagnosisType}
-                                                              else return "-"})}</TableCell>
+               patientDetails.allPatientInfo.map((item) => 
+                                                          {return item.diagnosisType}
+                                                              )}</TableCell>
                 <TableCell>
                 <Link to='/regpatients'>
 			           <Button 
@@ -155,7 +152,7 @@ useEffect(()=> {
                             const CustomToast = ({closeToast})=>{
                               return(
                                 <div style={{textAlign:"center"}}>
-                                  <h4>Successfully Predicted with Score: {predictPatient.severityScore}</h4>
+                                  <h4>Successfully Predicted with Score: {patientDetails.severityScore}</h4>
                                 </div>
                               )
                               
