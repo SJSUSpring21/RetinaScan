@@ -65,14 +65,7 @@ useEffect(()=> {
    axios.get('http://localhost:9000/fetchAllPatientDetails')
   .then((response) => {
     const patientDetails= response.data.result;
-    // var patientID = patientDetails.patientGenId;
-    
-    //  console.log(patientDetails)
     SetpatientDetails(patientDetails)
-    //console.log(patientDetails.patientGenId);
-    //console.log(patientDetails.id);
-    //console.log(patientDetails)
-    //patientDetails.map((patientDetail)=>console.log(patientDetail.patientName));
     console.log(patientDetails[0].allPatientInfo[0].patient_id);
   })
   .catch((err) => {
@@ -82,7 +75,6 @@ useEffect(()=> {
 
 
   const classes = useStyles();
-  // const [records, setRecords] = useState(SetpatientDetails(patientDetails));
   
   const {
     TableContainer,
@@ -120,8 +112,6 @@ useEffect(()=> {
                <TableRow key={patientDetails.id}>
                <TableCell>{patientDetails.patientName}</TableCell>
                <TableCell>{patientDetails.patientGenId}</TableCell>
-               
-               {/* <TableCell>{patientDetails[0].allPatientInfo[0].severityScore}</TableCell> */}
                <TableCell>{
                patientDetails.allPatientInfo.map((item) => 
                                                         {return item.severityScore})}</TableCell>
