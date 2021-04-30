@@ -152,7 +152,9 @@ useEffect(()=> {
                             const CustomToast = ({closeToast})=>{
                               return(
                                 <div style={{textAlign:"center"}}>
-                                  <h4>Successfully Predicted with Score: {patientDetails.severityScore}</h4>
+                                  <h4>Successfully Predicted with Score: {patientDetails.allPatientInfo.map((item) => 
+                                                          {return item.severityScore}
+                                                              )}</h4>
                                 </div>
                               )
                               
