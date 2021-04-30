@@ -167,6 +167,7 @@ function AddPatientForm() {
                         name="bloodSugarLevel"
                         type="number"
                         defaultValue = {Number}
+                        InputProps={{ inputProps: { min: 1} }}
                         onChange={handleInput}
                     />
                     
@@ -177,6 +178,7 @@ function AddPatientForm() {
                         name="cholestrolLevel"
                         type="number"
                         defaultValue = {Number}
+                        InputProps={{ inputProps: { min: 1} }}
                         onChange={handleInput}
                     />
                     <TextField 
@@ -186,6 +188,7 @@ function AddPatientForm() {
                         name="systolicbloodPressure"
                         type="number"
                         defaultValue = {Number}
+                        InputProps={{ inputProps: { min: 1} }}
                         onChange={handleInput}
                     />
                     <TextField
@@ -195,6 +198,7 @@ function AddPatientForm() {
                         name="diastolicbloodPressure"
                         type="number"
                         defaultValue = {Number}
+                        InputProps={{ inputProps: { min: 1} }}
                         onChange={handleInput}
                     />
                     </Grid>
