@@ -28,11 +28,11 @@ function PatientAtRisk() {
     const[patientDetails,SetpatientDetails] = useState([]);
 
     useEffect(()=> {
-        axios.get('http://localhost:9000/fetchAllPatientDetails')
+        axios.get('http://localhost:9000/getHighRiskPatients')
        .then((response) => {
          const patientDetails= response.data.result;
          SetpatientDetails(patientDetails)
-         console.log(patientDetails[0].allPatientInfo[0].patient_id);
+         console.log(patientDetails[0].diagnostic[0].patient_id);
        })
        .catch((err) => {
          console.log(err);
@@ -48,6 +48,7 @@ function PatientAtRisk() {
     } = ViewandPredictTable(patientDetails,cells);
     return (
         <div className="PatientAtRisk">
+          <h1>Patients at High Risk</h1>
         <TableContainer>
        <TblHead />
        <TableBody>
@@ -62,7 +63,7 @@ function PatientAtRisk() {
                <TableCell>{patientDetails.bloodSugarLevel}</TableCell>
                <TableCell>{patientDetails.cholestrolLevel}</TableCell>
                <TableCell>{
-                            patientDetails.allPatientInfo.map((item) => 
+                            patientDetails.diagnostic.map((item) => 
                                                 {return item.diagnosisType}
                                                               )}</TableCell>
                 <TableCell>{ patientDetails.systolicbloodPressure && patientDetails.diastolicbloodPressure ? `${patientDetails.systolicbloodPressure} / ${patientDetails.diastolicbloodPressure}` : ''}</TableCell>
