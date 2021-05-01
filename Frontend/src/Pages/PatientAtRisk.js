@@ -16,10 +16,10 @@ const cells = [
     { id: 'Name', label: 'Patient Name' },
     { id: 'Pid', label: 'Patient ID' },
     { id:'Age', label: 'Age'},
-    { id:'sugarlevel', label: 'Sugar level'},
-    { id:'cholesterol', label: 'Cholesterol'},
+    { id:'sugarlevel', label: 'Sugar level(mg/dL)'},
+    { id:'cholesterol', label: 'Cholesterol(mg/dL)'},
     { id: 'Severity', label: 'Severity' },
-    { id: 'BP' , label:'Blood Pressure'},
+    { id: 'BP' , label:'Blood Pressure (mm Hg)'},
     { id: 'istobaccoUser', label: 'Tobacco User'}
   ]
 
