@@ -1,14 +1,17 @@
-import React from 'react';
-import { withRouter } from 'react-router';
+import React, { Component } from 'react';
 import './Home.css';
 
-function Home() {
-    return (
-        <div className="home">
-            <h1>Home Page</h1>
-            
-        </div>
-    )
+export default class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+ 
+        };
+    }
+    render() {
+        return (
+            <div className="home">
+            </div>
+          );
+        }
 }
-
-export default withRouter(Home)
