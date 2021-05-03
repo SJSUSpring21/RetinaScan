@@ -89,8 +89,9 @@ export default class RegPatients extends Component {
     };
 
     singleFileUploadHandler = (event) => {
-      const imageData = new FormData();
-      if (this.state.selectedFile) {
+      const imageData = new FormData()
+      const check = this.state.patientId!==Number
+      if (this.state.selectedFile && check) {
         imageData.append('retinaImage', this.state.selectedFile, this.state.selectedFile.name);
         axios.post(`http://localhost:9000/retinaImageUpload/${this.state.patientId}`, imageData, {
           headers: {
@@ -117,7 +118,6 @@ export default class RegPatients extends Component {
                               <h4>Successfully Uploaded the Image!</h4>
                             </div>
                           )
-                          
                         }
                         toast.success(<CustomToast />, {position: toast.POSITION.BOTTOM_CENTER, autoClose:true})
                     }
@@ -134,13 +134,22 @@ export default class RegPatients extends Component {
               toast.error(<CustomToast1 />, {position: toast.POSITION.TOP_CENTER, autoClose:true})
             });
     } else {
-        console.log("File not providedd")
+        console.log("File or patient ID not provided")
+        const CustomToast1 = ({closeToast})=>{
+          return(
+            <div style={{textAlign:"center"}}>
+              <h4>File or patient ID not provided!</h4>
+            </div>
+          )
+        }
+        toast.error(<CustomToast1 />, {position: toast.POSITION.TOP_CENTER, autoClose:true})
     }
   };
 
   handlePredict = (e) => {
     e.preventDefault();
-    axios.post(`http://localhost:9000/predict/${this.state.patientId}`)
+    if (this.state.patientId!==Number){
+      axios.post(`http://localhost:9000/predict/${this.state.patientId}`)
       .then((response) => {
         console.log(response)
         this.setState({
@@ -167,6 +176,19 @@ export default class RegPatients extends Component {
         }
         toast.error(<CustomToast1 />, {position: toast.POSITION.TOP_CENTER, autoClose:true})
       });;
+    }
+    else{
+      console.log("Patient Id not provided")
+      const CustomToast1 = ({closeToast})=>{
+        return(
+          <div style={{textAlign:"center"}}>
+            <h4>Patient Id not provided!</h4>
+          </div>
+        )
+      }
+      toast.error(<CustomToast1 />, {position: toast.POSITION.TOP_CENTER, autoClose:true})
+    }
+    
   }
 
     render() {
