@@ -51,9 +51,12 @@ router.get('/getHighRiskPatients', async (req, res) => {
         Patient.aggregate([
             {$match: {
                 $or: [
-                    {bloodSugarLevel:{$gte:0}},
-                    {cholestrolLevel:{$gte:1}},
-                    {bloodPressure:{$gte:0}}
+                    {bloodSugarLevel:{$gte:160}},
+                    {cholestrolLevel:{$gte:215}},
+                    {systolicbloodPressure:{$gte:145}},
+                    {diastolicbloodPressure:{$gte:90}},
+                    {yearofDiabetes:{$gte:2011}},
+                    {isTobaccoUser:{$eq:true}}
                 ]
             }}, 
             {$lookup:{
