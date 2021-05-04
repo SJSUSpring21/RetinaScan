@@ -8,6 +8,8 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator' 
 import { format } from 'date-fns';
 import {toast} from 'react-toastify'
 import validator from 'validator'
+import * as CONST from '../const'
+var url = CONST.ROOT_URL;
 
 const genderList = [
     { id: 'Male', title: 'Male' },
@@ -43,7 +45,7 @@ function AddPatientForm() {
 
     const postPatientData = async() => {
         if (validator.isEmail(val.email)) {
-            axios.post('http://localhost:9000/registerPatient', val)
+            axios.post(`${url}/registerPatient`, val)
             .then((response) => {
               console.log(response)
               if(response.status===200){
