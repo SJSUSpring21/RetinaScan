@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './Home.css';
 import {Scatter, Bar} from 'react-chartjs-2';
+import * as CONST from '../const'
+var url = CONST.ROOT_URL;
 
 
 export default class Home extends Component {
@@ -18,7 +20,7 @@ export default class Home extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:9000/fetchAllPatientDetails')
+        axios.get(`${url}/fetchAllPatientDetails`)
         .then((response)=>{
             let ss = []
             let sbp = []
