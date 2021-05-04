@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from "axios";
 import './RegPatients.css';
 import {toast} from 'react-toastify'
+import * as CONST from '../const'
+var url = CONST.ROOT_URL;
+
 
 export default class RegPatients extends Component {
     constructor(props) {
@@ -30,7 +33,7 @@ export default class RegPatients extends Component {
 
     handleRetrieve = (e) => {
         e.preventDefault();
-        axios.get(`http://localhost:9000/fetchPatientDetails/${this.state.setpatientID}`, )
+        axios.get(`${url}/fetchPatientDetails/${this.state.setpatientID}`, )
           .then((response) => {
             const details = response.data.result
             console.log(details)
@@ -75,7 +78,7 @@ export default class RegPatients extends Component {
       e.preventDefault();
       const patientID = this.state.patientId
       const remarks = this.state.remarks
-      axios.post('http://localhost:9000/updateDiagnosis', {patientID,remarks})
+      axios.post(`${url}/updateDiagnosis`, {patientID,remarks})
         .then((response) => {
           console.log(response)
           this.setState({previousRemarks: remarks,remarks:''})  
@@ -93,7 +96,7 @@ export default class RegPatients extends Component {
       const check = this.state.patientId!==Number
       if (this.state.selectedFile && check) {
         imageData.append('retinaImage', this.state.selectedFile, this.state.selectedFile.name);
-        axios.post(`http://localhost:9000/retinaImageUpload/${this.state.patientId}`, imageData, {
+        axios.post(`${url}/retinaImageUpload/${this.state.patientId}`, imageData, {
           headers: {
               'accept': 'application/json',
               'Accept-Language': 'en-US,en;q=0.8',
@@ -149,7 +152,7 @@ export default class RegPatients extends Component {
   handlePredict = (e) => {
     e.preventDefault();
     if (this.state.patientId!==Number){
-      axios.post(`http://localhost:9000/predict/${this.state.patientId}`)
+      axios.post(`${url}/predict/${this.state.patientId}`)
       .then((response) => {
         console.log(response)
         this.setState({

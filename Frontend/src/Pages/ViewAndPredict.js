@@ -9,6 +9,8 @@ import axios from 'axios';
 import Controls from '../Components/Controls';
 import { Search } from "@material-ui/icons";
 import {toast} from 'react-toastify'
+import * as CONST from '../const'
+var url = CONST.ROOT_URL;
 
 const useStyles = makeStyles(theme => ({  
   pageContent: {
@@ -62,7 +64,7 @@ function ViewAndPredict() {
   
 
 useEffect(()=> {
-   axios.get('http://localhost:9000/fetchAllPatientDetails')
+   axios.get(`${url}/fetchAllPatientDetails`)
   .then((response) => {
     const patientDetails= response.data.result;
     SetpatientDetails(patientDetails)
@@ -134,7 +136,7 @@ useEffect(()=> {
                       onClick={(event) =>{
                         event.preventDefault();
   
-                        axios.post(`http://3.85.224.226:9000/predict/${patientDetails.patientGenId}`)
+                        axios.post(`${url}/predict/${patientDetails.patientGenId}`)
                           .then((response) => {
                             console.log(response)
                             const predictPatient = response.data.result;

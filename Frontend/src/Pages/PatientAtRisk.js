@@ -4,6 +4,8 @@ import { withRouter } from 'react-router';
 import ViewandPredictTable  from '../Components/ViewandPredictTable'
 import { makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment, Input } from '@material-ui/core';
 import axios from 'axios';
+import * as CONST from '../const'
+var url = CONST.ROOT_URL;
 
 const useStyles = makeStyles(theme => ({  
     pageContent: {
@@ -28,7 +30,7 @@ function PatientAtRisk() {
     const[patientDetails,SetpatientDetails] = useState([]);
 
     useEffect(()=> {
-        axios.get('http://localhost:9000/getHighRiskPatients')
+        axios.get(`${url}/getHighRiskPatients`)
        .then((response) => {
          const patientDetails= response.data.result;
          SetpatientDetails(patientDetails)
