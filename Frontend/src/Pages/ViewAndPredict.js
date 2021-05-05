@@ -3,7 +3,7 @@ import React, { useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import ViewandPredictTable  from '../Components/ViewandPredictTable'
-import { makeStyles, TableBody, TableRow, TableCell, Toolbar, InputAdornment, Input } from '@material-ui/core';
+import { makeStyles, Paper, TableBody, TableRow, TableCell, Toolbar, InputAdornment, Input } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
 import Controls from '../Components/Controls';
@@ -14,17 +14,15 @@ var url = CONST.ROOT_URL;
 
 const useStyles = makeStyles(theme => ({  
   pageContent: {
-      margin: theme.spacing(5),
-      padding: theme.spacing(3)
+      //margin: theme.spacing(5),
+      // padding: theme.spacing(3)
   },
   newButton: {
     position: 'absolute',
     right: '10px',
     marginTop: theme.spacing(2)
 },
-uploadButton:{
-  textDecoration:'none'
-}
+
 // uploadButton:{
 //   position: 'absolute',
 //   right: '150px',
@@ -37,11 +35,15 @@ uploadButton:{
 //   margin: theme.spacing(70),
 //   marginBottom: theme.spacing(10) 
 // },
-// searchInput:{
-//   marginBottom: theme.spacing(60),
-//   width:'75%'
+searchInput:{
+  margin: theme.spacing(3),
+  width:'50ch'
   
-// }
+},
+paper:{
+  margin: theme.spacing(15),
+  marginLeft:'-300px'
+}
 }))
 const cells = [
   { id: 'Name', label: 'Patient Name' },
@@ -51,17 +53,15 @@ const cells = [
   { id: 'actions', label: 'Actions'}
 ]
 
-// const handleSearch = e =>{
-//   return e.target;
-// }
 
 
 
-function ViewAndPredict() {
+
+export default function ViewAndPredict() {
 
   const [predictPatient,SetpredictPatient] = useState([]);
   const[patientDetails,SetpatientDetails] = useState([]);
-  
+  const[filterval,Setfilterval] = useState({fn : item => {return item;}})
 
 useEffect(()=> {
    axios.get(`${url}/fetchAllPatientDetails`)
@@ -73,19 +73,39 @@ useEffect(()=> {
   .catch((err) => {
     console.log(err);
   })
-}, [])
+}, [1])
 
+const handleSearch = e =>{
+  let target = e.target;
+        Setfilterval({
+            fn: item => {
+                if (target.value == "")
+                    return item;
+                else
+                    return item.filter(x => x.patientName.toLowerCase().includes(target.value))
+            }
+        })
+}
 
   const classes = useStyles();
   
   const {
     TableContainer,
-    TblHead
-  } = ViewandPredictTable(patientDetails,cells);
+    TblHead,
+    TblPagination,
+    tablePagingandSorting
+  } = ViewandPredictTable(patientDetails,cells,filterval);
     return (
-       <>
-       {/* <Toolbar>
-          <Controls.Input
+      <>
+      <Link to="/Add">
+       <Button 
+          variant="outlined"
+          startIcon={<AddIcon />}
+          className={classes.newButton} >Add new patient</Button>
+        </Link> 
+      <div>
+       <Toolbar>
+          <Controls.InputFields
             label="Search"
             className={classes.searchInput}
             InputProps={{
@@ -95,21 +115,17 @@ useEffect(()=> {
                         }}
                         onChange={handleSearch}
                     />
-        </Toolbar> */}
-       <Link to="/Add">
-       <Button 
-          variant="outlined"
-          startIcon={<AddIcon />}
-          className={classes.newButton} >Add new patient</Button>
-        </Link>  
-       
+        </Toolbar>
+        </div>
+       <div> 
+        <Paper className={classes.paper} elevation={3}>
        <TableContainer>
        <TblHead />
        
          <TableBody>
              {
                
-               patientDetails.map((patientDetails) =>
+               tablePagingandSorting().map((patientDetails) =>
                (
                <TableRow key={patientDetails.id}>
                <TableCell>{patientDetails.patientName}</TableCell>
@@ -121,15 +137,7 @@ useEffect(()=> {
                patientDetails.allPatientInfo.map((item) => 
                                                           {return item.diagnosisType}
                                                               )}</TableCell>
-                <TableCell>
-                <Link to='/regpatients'>
-			           <Button 
-                     variant="outlined"
-                      // startIcon={<PublishIcon />}
-                      //onClick={}
-                      className={classes.uploadButton} >Upload </Button>
-                 
-                </Link>    
+                <TableCell>   
                     <Button 
                       variant="outlined"
                       //  startIcon={<SearchIcon />}
@@ -178,17 +186,14 @@ useEffect(()=> {
         </TableBody> 
        
        </TableContainer>
-       {/* <Button 
-          variant="outlined"
-          startIcon={<PublishIcon />}
-          className={classes.uploadButton} >Upload </Button>
-        <Button 
-          variant="outlined"
-          startIcon={<SearchIcon />}
-          className={classes.predictButton} >Predict </Button> */}
+       <div style={{marginBottom:'10px'}}>
+       <TblPagination />
+       </div>
+       </Paper>
+       </div>
        
-       </> 
-    )
+    </>   
+    );
 }
 
-export default withRouter(ViewAndPredict)
+
