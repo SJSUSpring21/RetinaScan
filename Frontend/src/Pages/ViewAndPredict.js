@@ -158,7 +158,7 @@ const handleSearch = e =>{
                               
                             }
                             toast.success(<CustomToast />, {position: toast.POSITION.BOTTOM_CENTER, autoClose:true})
-                            window.location.reload();
+                            setTimeout(() =>{window.location.reload();} ,4000);
                           }).catch((error) => {
                             console.log(error)
                             const CustomToast1 = ({closeToast})=>{
