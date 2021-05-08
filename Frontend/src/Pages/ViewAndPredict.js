@@ -1,9 +1,9 @@
-import { Button, Table } from '@material-ui/core';
+import { Button} from '@material-ui/core';
 import React, { useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
+//import { withRouter } from 'react-router';
 import ViewandPredictTable  from '../Components/ViewandPredictTable'
-import { makeStyles, Paper, TableBody, TableRow, TableCell, Toolbar, InputAdornment, Input } from '@material-ui/core';
+import { makeStyles, Paper, TableBody, TableRow, TableCell, Toolbar, InputAdornment} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
 import Controls from '../Components/Controls';
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
   newButton: {
     position: 'absolute',
-    right: '10px',
+    right: '20px',
     marginTop: theme.spacing(2)
 },
 
@@ -42,7 +42,7 @@ searchInput:{
 },
 paper:{
   margin: theme.spacing(15),
-  marginLeft:'-300px'
+  marginLeft:'-450px'
 }
 }))
 const cells = [

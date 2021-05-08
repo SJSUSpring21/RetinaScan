@@ -1,0 +1,61 @@
+.rp{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;  
+    width: 100%;
+    margin: 30px;
+   
+}
+
+.form-update{
+    margin:auto;
+    width: 100%;
+    
+}
+
+.imgc{
+    position: absolute;
+    top: 20%;
+    left: 60%;
+    transform: translateX(-100px);
+}
+
+.inline{
+    display: flex;
+    flex-direction: row;
+
+    
+}
+
+.btn-patient{
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.details{
+    padding: 20px;
+    font-size: 16pts;
+    border: solid #2f4050 3px;
+    border-radius: 10px;
+}
+
+.btn-patient2{
+    padding: 5px;
+}
+
+.card-body{
+    padding: 20px;
+    font-size: 16pts;
+    border: solid #2f4050 3px;
+    border-radius: 10px;
+}
+
+.pbut{
+    padding: 20px;
+    font-size: 16pts;
+    border: solid #2f4050 3px;
+    border-radius: 10px;
+}
+
+.btn-action{
+    padding: 5px;
+}

@@ -1,7 +1,6 @@
 .SideNavbar{
     height: 100%;
     width: 200px;
-    display: inline-block;
     margin:0;
     padding: 0;
     background-color: #2f4050;
@@ -14,11 +13,12 @@
 }
 .SideNavbarList .SideNavbarRows{
     width: 100%;
-    height: 70px;
+    height: 80px;
+    padding-top: 28px;
     list-style-type: none;
-    margin: 0px;
+    margin: 0%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     color: white;
     justify-content: center;
     align-items: center;

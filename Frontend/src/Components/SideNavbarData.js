@@ -12,7 +12,7 @@ export const SideNavbarData = [
         link:"/",
     },
     {
-        title: "Add" ,
+        title: "Add A New Patient" ,
         icon: <AddCircleSharpIcon />,
         link: "/add",
     },
@@ -22,12 +22,12 @@ export const SideNavbarData = [
         link: "/regpatients",
     },
     {
-        title: "Predict" ,
+        title: "All Patients" ,
         icon: <FindInPageSharpIcon />,
         link: "/viewAndPredict",
     },
     {
-        title: "Patients at risk" ,
+        title: "Patients At Risk" ,
         icon: <WarningSharpIcon />,
         link: "/patientAtRisk",
     }

@@ -1,11 +1,17 @@
 .home
 {
-    
         display: inline-block;
         height: 100%;
-        width:80%;
+        width: 83%;
         align-items: center;
         justify-content: center;
-     
-      
+        text-align: center;
+        margin-left: 15px;
+        
 }
+
+.h2{
+        align-items: center;
+        text-align: center;
+}
+

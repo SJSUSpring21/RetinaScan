@@ -55,7 +55,7 @@ router.get('/getHighRiskPatients', async (req, res) => {
                     {cholestrolLevel:{$gte:215}},
                     {systolicbloodPressure:{$gte:145}},
                     {diastolicbloodPressure:{$gte:90}},
-                    {yearofDiabetes:{$lte:2011}},
+                    {yearofDiabetes:{$lte:2015}},
                     {isTobaccoUser:{$eq:true}}
                 ]
             }}, 
