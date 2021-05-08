@@ -34,6 +34,7 @@ export default class RegPatients extends Component {
     handleRetrieve = (e) => {
         e.preventDefault();
         axios.get(`${url}/fetchPatientDetails/${this.state.setpatientID}`, )
+        //axios.get(`${url}/fetchPatientDetails/${this.state.setpatientID}`, )
           .then((response) => {
             const details = response.data.result
             console.log(details)
@@ -198,46 +199,60 @@ export default class RegPatients extends Component {
         return (
           <div className="rp">
             <form onSubmit={this.handleRetrieve} className="form-getDetails">
-              <label style={{fontSize:20}}htmlFor="inputID" className="sr-only">Enter Patient ID</label>
-              <input onChange={this.patientIDChangeHandler} value={this.state.setpatientID} type="number" name="patientID" className="form-control mb-3" required autoFocus autocomplete="off"/>
-              <br></br>
-              <button className="btn btn-lg btn-primary btn-block" type="submit">Enter</button>
+              <label style={{fontSize:20}}htmlFor="inputID">Enter Patient ID</label>
+              <div className="inline">
+                <input style={{width:400}} onChange={this.patientIDChangeHandler} value={this.state.setpatientID} type="number" name="patientID" className="form-control mb-3" required autoFocus autocomplete="off"/>
+                <button className="btn btn-patient btn-lg btn-primary" type="submit" style={{width:200, fontSize: 20}}>Enter</button>
+              </div>
+
             </form>
-
-
             <br></br>
-            {/* 'https://i.imgur.com/jFSkR3S.png' */}
-            <img src={this.state.imageURL} alt="" height="300" style={{alignItems:'center'}}/>
-            <form onSubmit={this.handleUpdate} className="form-update">
-                <p>Patient ID: {this.state.patientId}</p>
-                <p>Patient Name: {this.state.patientName}</p>
-                <p>Age: {this.state.age}</p>
-                <p>Gender: {this.state.gender}</p>
-                <p>Diabetes Type: {this.state.dType}</p>
-                <p>Diagnosed Year: {this.state.diagnosedYear}</p>
-                <p>Sugar Level (mg/dL): {this.state.sugarLevel}</p>
-                <p>Cholestrol Level (mg/dL): {this.state.cholestrolLevel}</p>
-                <p>Systolic Blood Pressure (mm Hg): {this.state.systolicbloodPressure}</p>
-                <p>Diastolic Blood Pressure (mm Hg): {this.state.diastolicbloodPressure}</p>
-                <p>Tobacco User: {this.state.tobaccoUser}</p>
-                <p>Severity Score: {this.state.severityScore}</p>
-                <p>Severity Type: {this.state.severityType}</p>
-                <p>Previous Remarks: {this.state.previousRemarks}</p>
-                <label htmlFor="inputRemarks" className="sr-only">Remarks</label>
-                <input onChange={this.remarksChangeHandler} value={this.state.remarks} type="text" name="remarks" className="form-control mb-3" autocomplete="off"/>
-                <br></br>
-                <button className="btn btn-lg btn-primary btn-block" type="submit">Update</button>
-            </form>
-
+            <div className="details">
+              <div className="imgc">
+                <img src={this.state.imageURL} alt="" height="400"/>
+              </div>
+              
+              <form onSubmit={this.handleUpdate} className="form-update">
+                  <p>Patient ID: {this.state.patientId}</p>
+                  <p>Patient Name: {this.state.patientName}</p>
+                  <p>Age: {this.state.age}</p>
+                  <p>Gender: {this.state.gender}</p>
+                  <p>Diabetes Type: {this.state.dType}</p>
+                  <p>Diagnosed Year: {this.state.diagnosedYear}</p>
+                  <p>Sugar Level (mg/dL): {this.state.sugarLevel}</p>
+                  <p>Cholestrol Level (mg/dL): {this.state.cholestrolLevel}</p>
+                  <p>Systolic Blood Pressure (mm Hg): {this.state.systolicbloodPressure}</p>
+                  <p>Diastolic Blood Pressure (mm Hg): {this.state.diastolicbloodPressure}</p>
+                  <p>Tobacco User: {this.state.tobaccoUser}</p>
+                  <p>Severity Score: {this.state.severityScore}</p>
+                  <p>Severity Type: {this.state.severityType}</p>
+                  <p>Previous Remarks: {this.state.previousRemarks}</p>
+                  <label htmlFor="inputRemarks">Remarks:</label>
+                  <input onChange={this.remarksChangeHandler} value={this.state.remarks} type="text" name="remarks" className="form-control mb-3" autocomplete="off"/>
+                  <br></br>
+                  <button className="btn btn-patient2 btn-lg btn-primary" type="submit" style={{width:200, fontSize: 20}}>Update</button>
+              </form>
+              </div>
+            <br></br>
             <div className="card-body">
-                        <p className="card-text">Please upload Retina image</p>
-                        <input type="file" webkitdirectory onChange={this.singleFileChangedHandler} />
-                        <div className="mt-5">
-                            <button className="btn btn-info" onClick={this.singleFileUploadHandler}>Upload Retina Image</button>
-                        </div>
+              <p style={{fontSize: 20}}>Upload Retina Image</p>
+              <input type="file" webkitdirectory onChange={this.singleFileChangedHandler} />
+              <br></br>
+              <div className="mt-5">
+                <button className="btn btn-action btn-lg btn-info" onClick={this.singleFileUploadHandler} style={{width:200, fontSize: 20}}>Upload</button>
+              </div>
+
             </div>
             <br></br>
-            <button className="btn btn-info" onClick={this.handlePredict}>Predict Retina Score</button>
+
+            <div className="pbut">
+            <p style={{fontSize: 20}}>Predict Retina Score</p>
+              <button className="btn btn-action btn-lg btn-info" onClick={this.handlePredict} style={{width:200, fontSize: 20}}>Predict</button>
+            </div>
+              
+
+            
+           
           </div>
         );
       }

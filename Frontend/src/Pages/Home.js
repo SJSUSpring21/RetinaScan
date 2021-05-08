@@ -71,7 +71,8 @@ export default class Home extends Component {
         return (
             <div className="home">
                 <h1>RetinaScan</h1>
-                <h1>Count by Severity Score</h1>
+                <h2>Count by Severity Score</h2>
+                <div>
                 <Bar
                     data = {{
                         labels: [0,1,2,3,4],
@@ -79,20 +80,24 @@ export default class Home extends Component {
                           {
                             label:'Total Patients',
                             fill: false,
-                            backgroundColor: 'rgba(75,192,192,0.4)',
+                            backgroundColor: '#003f5c',
                             data: this.state.aggSS
-                            //data: [21, 7, 12, 5, 5]
                           }
                         ]
                       }
                     }
-                    width={40}
-                    height={10}
+                    width={600}
+                    height={300}
+                    options={{maintainAspectRatio: false}}
                 
                 />
+                  
+                  
+                  </div> 
 
+                
                 <br></br>
-                <h1>Cholesterol vs Severity Score</h1>
+                <h2>Cholesterol vs Severity Score</h2>
                 <Scatter
                     data = {{
                         labels: this.state.severityScore,
@@ -100,13 +105,13 @@ export default class Home extends Component {
                           {
                             label:'Cholesterol Level',
                             fill: false,
-                            backgroundColor: 'rgba(75,192,192,0.4)',
-                            pointBorderColor: 'rgba(75,192,192,1)',
-                            pointBackgroundColor: 'rgba(75,192,192,1)',
+                            backgroundColor: '#003f5c',
+                            pointBorderColor: '#003f5c',
+                            pointBackgroundColor: '#003f5c',
                             pointBorderWidth: 1,
                             pointHoverRadius: 5,
-                            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                            pointHoverBorderColor: 'rgba(220,220,220,1)',
+                            pointHoverBackgroundColor: '#003f5c',
+                            pointHoverBorderColor: '#003f5c',
                             pointHoverBorderWidth: 2,
                             pointRadius: 5,
                             pointHitRadius: 10,
@@ -115,15 +120,16 @@ export default class Home extends Component {
                         ]
                       }
                     }
-                    width={30}
-                    height={10}
+                    width={80}
+                    height={20}
+                    
                                    
                 
                 
                 />
-
+              
                 <br></br>
-                <h1>Systolic Blood Pressure vs Severity Score</h1>
+                <h2>Systolic Blood Pressure vs Severity Score</h2>
                 <Scatter
                     data = {{
                         labels: this.state.severityScore,
@@ -131,13 +137,13 @@ export default class Home extends Component {
                           {
                             label:'Systolic Blood Pressure',
                             fill: false,
-                            backgroundColor: 'rgba(75,192,192,0.4)',
-                            pointBorderColor: 'rgba(75,192,192,1)',
-                            pointBackgroundColor: 'rgba(75,192,192,1)',
+                            backgroundColor: '#003f5c',
+                            pointBorderColor: '#003f5c',
+                            pointBackgroundColor: '#003f5c',
                             pointBorderWidth: 1,
                             pointHoverRadius: 5,
-                            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                            pointHoverBorderColor: 'rgba(220,220,220,1)',
+                            pointHoverBackgroundColor: '#003f5c',
+                            pointHoverBorderColor: '#003f5c',
                             pointHoverBorderWidth: 2,
                             pointRadius: 5,
                             pointHitRadius: 10,
@@ -146,13 +152,13 @@ export default class Home extends Component {
                         ]
                       }
                     }
-                    width={30}
-                    height={10}
+                    width={80}
+                    height={20}
                 
                 />
 
                 <br></br>
-                <h1>Diastolic Blood Pressure vs Severity Score</h1>
+                <h2>Diastolic Blood Pressure vs Severity Score</h2>
                 <Scatter
                     data = {{
                         labels: this.state.severityScore,
@@ -160,13 +166,13 @@ export default class Home extends Component {
                           {
                             label:'Diastolic Blood Pressure',
                             fill: false,
-                            backgroundColor: 'rgba(75,192,192,0.4)',
-                            pointBorderColor: 'rgba(75,192,192,1)',
-                            pointBackgroundColor: 'rgba(75,192,192,1)',
+                            backgroundColor: '#003f5c',
+                            pointBorderColor: '#003f5c',
+                            pointBackgroundColor: '#003f5c',
                             pointBorderWidth: 1,
                             pointHoverRadius: 5,
-                            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                            pointHoverBorderColor: 'rgba(220,220,220,1)',
+                            pointHoverBackgroundColor: '#003f5c',
+                            pointHoverBorderColor: '#003f5c',
                             pointHoverBorderWidth: 2,
                             pointRadius: 5,
                             pointHitRadius: 10,
@@ -175,8 +181,8 @@ export default class Home extends Component {
                         ]
                       }
                     }
-                    width={30}
-                    height={10}
+                    width={80}
+                    height={20}
                 />
                 <br></br>
                 
