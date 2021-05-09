@@ -4,12 +4,21 @@ import { Table, TableHead, TableRow, TableCell, makeStyles, TablePagination, Tab
 const useStyles = makeStyles(theme => ({
     table: {
         marginTop: theme.spacing(10)
+    },
+    // head:{
+    //      backgroundColor: theme.palette.common.grey,
+    //     //color: theme.palette.common.white,
+    //     fontSize: 18
+    // },
+    cell:{
+        fontSize: 18
     }
         
 }))
 
 export default function ViewandPredictTable(patientDetails, cells, filterval) {
 
+    
     const classes = useStyles();
     const pages = [5, 10, 25]
     const [page, setPage] = useState(0)
@@ -29,11 +38,11 @@ export default function ViewandPredictTable(patientDetails, cells, filterval) {
             setOrder(isAsc ? 'desc' : 'asc');
             setOrderBy(cellId)
         }
-    return (<TableHead>
+    return (<TableHead className={classes.head}>
         <TableRow>
             {
                 cells.map(cell => (
-                    <TableCell key={cell.id}
+                    <TableCell className={classes.cell} key={cell.id}
                      sortDirection={orderBy === cell.id ? order : false}>
                             {cell.disableSorting ? cell.label :
                                 <TableSortLabel
