@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Home.css';
 import {Scatter, Bar} from 'react-chartjs-2';
 import * as CONST from '../const'
+
 var url = CONST.ROOT_URL;
 
 
@@ -70,7 +71,6 @@ export default class Home extends Component {
     render() {
         return (
             <div className="home">
-                <h1>RetinaScan</h1>
                 <h2>Count by Severity Score</h2>
                 <div>
                 <Bar
@@ -80,7 +80,7 @@ export default class Home extends Component {
                           {
                             label:'Total Patients',
                             fill: false,
-                            backgroundColor: '#003f5c',
+                            backgroundColor: '#8ed9f8',
                             data: this.state.aggSS
                           }
                         ]
@@ -105,13 +105,13 @@ export default class Home extends Component {
                           {
                             label:'Cholesterol Level',
                             fill: false,
-                            backgroundColor: '#003f5c',
-                            pointBorderColor: '#003f5c',
-                            pointBackgroundColor: '#003f5c',
+                            backgroundColor: '#8ed9f8',
+                            pointBorderColor: '#8ed9f8',
+                            pointBackgroundColor: '#8ed9f8',
                             pointBorderWidth: 1,
                             pointHoverRadius: 5,
-                            pointHoverBackgroundColor: '#003f5c',
-                            pointHoverBorderColor: '#003f5c',
+                            pointHoverBackgroundColor: '#8ed9f8',
+                            pointHoverBorderColor: '#8ed9f8',
                             pointHoverBorderWidth: 2,
                             pointRadius: 5,
                             pointHitRadius: 10,
@@ -137,13 +137,13 @@ export default class Home extends Component {
                           {
                             label:'Systolic Blood Pressure',
                             fill: false,
-                            backgroundColor: '#003f5c',
-                            pointBorderColor: '#003f5c',
-                            pointBackgroundColor: '#003f5c',
+                            backgroundColor: '#8ed9f8',
+                            pointBorderColor: '#8ed9f8',
+                            pointBackgroundColor: '#8ed9f8',
                             pointBorderWidth: 1,
                             pointHoverRadius: 5,
-                            pointHoverBackgroundColor: '#003f5c',
-                            pointHoverBorderColor: '#003f5c',
+                            pointHoverBackgroundColor: '#8ed9f8',
+                            pointHoverBorderColor: '#8ed9f8',
                             pointHoverBorderWidth: 2,
                             pointRadius: 5,
                             pointHitRadius: 10,
@@ -166,13 +166,13 @@ export default class Home extends Component {
                           {
                             label:'Diastolic Blood Pressure',
                             fill: false,
-                            backgroundColor: '#003f5c',
-                            pointBorderColor: '#003f5c',
-                            pointBackgroundColor: '#003f5c',
+                            backgroundColor: '#8ed9f8',
+                            pointBorderColor: '#8ed9f8',
+                            pointBackgroundColor: '#8ed9f8',
                             pointBorderWidth: 1,
                             pointHoverRadius: 5,
-                            pointHoverBackgroundColor: '#003f5c',
-                            pointHoverBorderColor: '#003f5c',
+                            pointHoverBackgroundColor: '#8ed9f8',
+                            pointHoverBorderColor: '#8ed9f8',
                             pointHoverBorderWidth: 2,
                             pointRadius: 5,
                             pointHitRadius: 10,

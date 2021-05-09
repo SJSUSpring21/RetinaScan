@@ -1,9 +1,10 @@
 .SideNavbar{
     height: 100%;
     width: 200px;
-    margin:0;
-    padding: 0;
-    background-color: #2f4050;
+    top:0;
+    left:0;
+    padding-top: 50px;
+    background-color: #1c1d4d;
     position:fixed;
 }
 .SideNavbarList{
@@ -28,13 +29,13 @@
 
 .SideNavbarList .SideNavbarRows:hover{
     cursor: pointer;
-    background-color: #293846; 
+    background-color: #20215a; 
 
 }
 
-.SideNavbarList #active{
-   background-color: #293846;  
-}
+/* .SideNavbarList #active{
+   background-color: #20215a;  
+} */
 .SideNavbarRows #navIcons{
     flex:30%;
     display:grid;

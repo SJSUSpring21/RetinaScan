@@ -165,7 +165,7 @@ function AddPatientForm() {
                     <TextField 
                         required
                         variant="outlined"
-                        label="Blood Sugar Level (mg/dL) - 1/2 hours after eating "
+                        label="Blood Sugar Level (mg/dL) - 2 hours after eating"
                         name="bloodSugarLevel"
                         type="number"
                         defaultValue = {Number}
