@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import Button from '@material-ui/core/Button';
 import './RegPatients.css';
 import {toast} from 'react-toastify'
 import * as CONST from '../const'
@@ -202,7 +203,7 @@ export default class RegPatients extends Component {
               <label style={{fontSize:20}}htmlFor="inputID">Enter Patient ID</label>
               <div className="inline">
                 <input style={{width:400}} onChange={this.patientIDChangeHandler} value={this.state.setpatientID} type="number" name="patientID" className="form-control mb-3" required autoFocus autocomplete="off"/>
-                <button className="btn btn-patient btn-lg btn-primary" type="submit" style={{width:200, fontSize: 20}}>Enter</button>
+                <Button variant="contained" color="primary"className="btn btn-patient btn-lg btn-primary" type="submit" style={{width:200, height:'40px', fontSize: 20}}>Enter</Button>
               </div>
 
             </form>
@@ -230,7 +231,7 @@ export default class RegPatients extends Component {
                   <label htmlFor="inputRemarks">Remarks:</label>
                   <input onChange={this.remarksChangeHandler} value={this.state.remarks} type="text" name="remarks" className="form-control mb-3" autocomplete="off"/>
                   <br></br>
-                  <button className="btn btn-patient2 btn-lg btn-primary" type="submit" style={{width:200, fontSize: 20}}>Update</button>
+                  <Button variant="contained" color="primary" className="btn btn-patient2 btn-lg btn-primary" type="submit" style={{width:200,height:'40px', marginTop:'6px' , fontSize: 20}}>Update</Button>
               </form>
               </div>
             <br></br>
@@ -239,7 +240,7 @@ export default class RegPatients extends Component {
               <input type="file" webkitdirectory onChange={this.singleFileChangedHandler} />
               <br></br>
               <div className="mt-5">
-                <button className="btn btn-action btn-lg btn-info" onClick={this.singleFileUploadHandler} style={{width:200, fontSize: 20}}>Upload</button>
+              <Button variant="contained" color="primary" className="btn btn-action btn-lg btn-info" onClick={this.singleFileUploadHandler} style={{width:200, height:'40px', marginTop:'6px', fontSize: 20}}>Upload</Button>
               </div>
 
             </div>
@@ -247,7 +248,7 @@ export default class RegPatients extends Component {
 
             <div className="pbut">
             <p style={{fontSize: 20}}>Predict Retina Score</p>
-              <button className="btn btn-action btn-lg btn-info" onClick={this.handlePredict} style={{width:200, fontSize: 20}}>Predict</button>
+            <Button variant="contained" color="primary" className="btn btn-action btn-lg btn-info" onClick={this.handlePredict} style={{width:200, fontSize: 20}}>Predict</Button>
             </div>
               
 
