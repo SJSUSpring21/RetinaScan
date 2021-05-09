@@ -138,7 +138,7 @@ const handleSearch = e =>{
                                                           {return item.diagnosisType}
                                                               )}</TableCell>
                 <TableCell>   
-                    <Button 
+                    <Button variant="contained" color="primary" 
                       variant="outlined"
                       //  startIcon={<SearchIcon />}
                       onClick={(event) =>{
