@@ -6,16 +6,20 @@ import  PatientAtRisk from './Pages/PatientAtRisk';
 import  ViewAndPredict  from './Pages/ViewAndPredict';
 import  Add from './Pages/Add';
 import RegPatients from './Pages/RegPatients'
+import Header from './Components/Header'
 
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+
 toast.configure()
 
 function App() {
   return (
     <div className="App">
+      <Header/>
       <BrowserRouter> 
       <div className="sideswitch">
+       
       <SideNavbar />
       <div style={{paddingLeft:205}} ></div>
       <Switch>

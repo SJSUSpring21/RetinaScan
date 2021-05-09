@@ -1,0 +1,18 @@
+.header {
+    padding: 5px 0;
+    text-align: center;
+    background: #1c1d4d;
+    height: 50px;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  .header h1{
+      color: #fff;
+      line-height: 0px;
+      box-align: center;
+      padding-left: 150px;
+
+  }
