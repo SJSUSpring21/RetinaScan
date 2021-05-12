@@ -52,7 +52,7 @@ function AddPatientForm() {
                   const CustomToast = ({closeToast})=>{
                     return(
                       <div style={{textAlign:"center"}}>
-                        <h4>Successfully Registered Patient!</h4>
+                        <h4>{response.data}</h4>
                       </div>
                     )
                   }
