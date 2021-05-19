@@ -12,4 +12,4 @@ Ophthalmologists in India
 ![Architecture Diagram - RetinaScan](https://user-images.githubusercontent.com/61460629/118711160-e4234f80-b83c-11eb-94ca-a71ef4e8ef2f.jpg)
 
 
-## Application URL: 
+## Application URL: http://34.228.54.66:3000/
