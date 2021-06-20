@@ -8,9 +8,9 @@ const mongoose = require('mongoose');
 const Diagnosis = mongoose.model("Diagnosis");
 
 const s3 = new aws.S3({
-  accessKeyId: 'AKIAYOG23DSW6Y7JFHPQ',
-  secretAccessKey: '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',
-  Bucket: 'retinascans3bucket'
+  accessKeyId: '',
+  secretAccessKey: '',
+  Bucket: ''
 });
 
 router.post('/retinaImageUpload/:patientId', (req, res) => {
